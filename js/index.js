@@ -1,24 +1,39 @@
 const container = document.getElementById("container")
+const startGame = document.getElementById("start-game")
 
 
 
-// empty array for objects which will each be {shape:,color:,background:,nuumber}
-//array of shapes
-// array of colors
-// array of backgrounds
-// array of numbers
-let cardDivArray = []
-// start game first creates cards
-const createBlankCards = () => {
-    for (i=0; i<=81; i++) {
-        const card = document.createElement("div")
+// empty array for array which will each be [shape, color, background, number]
+let possibleCards = []
+const fill = ["solid", "hollow", "stripe"]
+const numbers = [1,2,3]
+const shapes = ["triangle", "circle", "square"]
+const colors = ["red", "green", "blue"]
+
+//Here should be a function that exactly sorts the properties into propertyArrays, with no two alike
+
+
+
+
+
+// this function creates cards
+
+possibleCards.forEach((propertyArray, index) => {
+        card = document.createElement("div")
+        card.setAttribute("id", `${index}`)
         card.classList.add("card")
-        card.setAttribute("id", `${i}`)
+        //This assigns classes based on properties
+        for (word of propertyArray) {
+            card.classList.add(word)
+        }
         container.appendChild(card)
-        cardDivArray.push(i)
-    }
-}
-createBlankCards()
+        //This assigns the div to a variable that uses the index in the name
+        window[`card${index}`] = card
+})
+
+
+
+
 
 
 //fill array with 81 unique shapes

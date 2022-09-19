@@ -5,3 +5,24 @@
 
 /* divs flexbox with 5 columns */
 /* cllasses for properties: color, background fill, shape, number */
+
+.square {
+
+}
+
+.circle {
+    border-radius: 50%;
+}
+
+.triangle {
+
+}
+
+.blue {
+
+}
+
+.green {
+
+}
+
