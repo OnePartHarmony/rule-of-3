@@ -1,4 +1,4 @@
-const mat = document.getElementById("mat")
+const firstTwelve = document.getElementById("first-twelve")
 const startGame = document.getElementById("start-game")
 const deck = document.getElementById("deck")
 
@@ -10,25 +10,28 @@ const numbers = [1,2,3]
 
 //this function creates an array of arrays, each with a unique combination of one each of the properties
 const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
-let possibleCards = uniqueSort(shapes, colors, fill, numbers)
-console.log(possibleCards)
+possibleCards = uniqueSort(shapes, colors, fill, numbers)
+// console.log(possibleCards)
 
 
 
 // this function creates cards
 
-// possibleCards.forEach((uniquePropertyArray, index) => {
-//         card = document.createElement("div")
-//         card.setAttribute("id", `${index}`)
-//         card.classList.add("card")
-//         //This assigns classes based on properties
-//         for (word of uniquePropertyArray) {
-//             card.classList.add(word)
-//         }
-//         deck.appendChild(card)
-//         //This assigns the div to a variable that uses the index in the name
-//         window[`card${index}`] = card
-// })
+possibleCards.forEach((uniqueCardArray, index) => {
+    //create a div with a unique id
+        card = document.createElement("div")
+        cardShape = document.createElement("div")
+        card.appendChild(cardShape)
+        card.setAttribute("id", `${index}`)
+        card.classList.add("card")
+        //This assigns classes based on properties
+        for (const word of uniqueCardArray) {
+            card.classList.add(word)
+        }
+        firstTwelve.appendChild(card)
+        //This assigns the div to a variable that uses the index in the name
+        window[`card${index}`] = card
+})
 
 
 
