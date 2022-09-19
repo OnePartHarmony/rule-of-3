@@ -28,22 +28,39 @@ JavaScript
 
 ## Wireframes
 Opening screen:
+
 ![opening of set](/wireframes/gameStart.png)
+
 After Start Game:
+
 ![set game](/wireframes/wire1.png)
+
 After deal:
+
 ![set game](/wireframes/wire2.png)
+
 After player clicks three cards that make a set:
+
 ![set game](/wireframes/wire3.png)
+
 When player chooses wrong three cards:
+
 ![set game](/wireframes/wire4.png)
+
 When player clicks deck, but there are sets in the 12 cards:
+
 ![set game](/wireframes/wire5.png)
+
 When player clicks deck and there were no sets available:
+
 ![set game](/wireframes/wire6.png)
+
 When deck is empty but game isn't over and player clicks deck:
+
 ![set game](/wireframes/wire7.png)
+
 when player finds all sets:
+
 ![set game](/wireframes/wire8.png)
 
 I'm currently planning for at least a one-player mode.  When that is working, this will be updated for wireframes for 2-player.
