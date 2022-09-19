@@ -40,3 +40,11 @@ I will use js to create 81 card divs and assign them shapes that coorispond to t
 I will use Math.random() to shuffle the deck.
 When a player clicks 3 cards, I will use a function checkWin() to decide if they are a set.
 When a player clicks check set, a function checkSet() will check if there are possible sets and if not, draw three more cards.
+
+
+## Schedule for the week
+Monday: setup general layout of objects in Html, work on js
+Tuesday: work on js in day, work on some of the visual side in the evening
+Wednesday: work on js during the day, in the evening reassess how far I've gotten, and add or reduce details, plan for next two days
+Thursday-Saturday: execute new plan
+Sunday: finishing details / submit project.
