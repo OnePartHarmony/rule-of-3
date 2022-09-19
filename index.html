@@ -12,14 +12,25 @@
         <!-- header with title and instructions -->
         <header>
             <h1>Set Of Things</h1>
-            <p>Here is where I will describe how to play the game</p>>
+            
         </header>
-        <!-- button to populate cards -->
-        <button id="start-game">Start Game</button>
-        <!-- button for extra cards if no sets -->
-        <button id="check-possible-set">Add Cards</button>
-        <!-- container div -->
-        <div id="container"></div>
-           <!-- 15 card divs in 5 columns -->
+        <div id="game-board">
+            <div id="deck"></div>
+            <!-- div where cards are layed out -->
+            <div id="mat">
+                <p>Here is where I will describe how to play the game</p>
+                 <!-- button to populate cards -->
+                <button id="start-game">Start Game</button>
+                <!-- button for extra cards if no sets -->
+                <button id="check-possible-set">Check Set</button>
+            <!-- 15 card divs in 5 columns -->
+                <div id="firstTwelve"></div>
+                <div id="extraThree"></div>
+            <!-- testing a card -->
+                <div class="card blue stripe circle">
+                    <div></div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
