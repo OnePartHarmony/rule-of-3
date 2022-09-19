@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -16,10 +20,8 @@ header {
 }
 
 
-
-
 .card {
-    display: block;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -30,46 +32,44 @@ header {
     border: 1px solid black;
 }
 
-.card:first-child {
+.card div {
     height: 80px;
     width: 80px;
 }
 
-
-
-
-.square:first-child {
+.square div {
 
 }
 
-.circle:first-child {
+.circle div {
     border-radius: 50%;
 }
 
-.triangle:first-child {
+.triangle div {
 
 }
 
-.blue:first-child {
+.blue div {
+    border: 8px solid blue;
+    background-color: blue;
+}
+
+.green div {
 
 }
 
-.green:first-child {
+.red div {
 
 }
 
-.red:first-child {
+.solid div {
 
 }
 
-.solid:first-child {
-
+.hollow div {
+    background-color: white;
 }
 
-.hollow:first-child {
-
-}
-
-.stripe:first-child {
-    background: linear-gradient(45deg, black 12.5%, white 12.5% 25%, black 25% 37.5%, white 50% 62.5%, black 75% 87.5%, white 87.5%)
+.stripe div {
+    background: linear-gradient(45deg, black 25%, white 25% 50%, black 50% 75%, white 75%)
 }
