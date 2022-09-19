@@ -1,28 +1,75 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header {
+    text-align: center;
+}
+
+#mat {
+    background-color: green;
+    height: 700px;
+    width: 1000px;
+}
+
+
+
+
 .card {
-    display: none;
+    display: block;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    width: 100px;
+    border-radius: 20%;
+    background-color: white;
+    border: 1px solid black;
+}
+
+.card:first-child {
+    height: 80px;
+    width: 80px;
 }
 
 
-/* divs flexbox with 5 columns */
-/* cllasses for properties: color, background fill, shape, number */
 
-.square {
+
+.square:first-child {
 
 }
 
-.circle {
+.circle:first-child {
     border-radius: 50%;
 }
 
-.triangle {
+.triangle:first-child {
 
 }
 
-.blue {
+.blue:first-child {
 
 }
 
-.green {
+.green:first-child {
 
 }
 
+.red:first-child {
+
+}
+
+.solid:first-child {
+
+}
+
+.hollow:first-child {
+
+}
+
+.stripe:first-child {
+    background: linear-gradient(45deg, black 12.5%, white 12.5% 25%, black 25% 37.5%, white 50% 62.5%, black 75% 87.5%, white 87.5%)
+}

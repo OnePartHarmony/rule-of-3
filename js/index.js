@@ -1,5 +1,6 @@
-const container = document.getElementById("container")
+const mat = document.getElementById("mat")
 const startGame = document.getElementById("start-game")
+const deck = document.getElementById("deck")
 
 
 
@@ -26,7 +27,7 @@ possibleCards.forEach((propertyArray, index) => {
         for (word of propertyArray) {
             card.classList.add(word)
         }
-        container.appendChild(card)
+        deck.appendChild(card)
         //This assigns the div to a variable that uses the index in the name
         window[`card${index}`] = card
 })
