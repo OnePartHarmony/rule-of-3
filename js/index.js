@@ -1,6 +1,26 @@
-const firstTwelve = document.getElementById("first-twelve")
+const cardDiv = document.getElementById("card-div")
 const startGame = document.getElementById("start-game")
 const deck = document.getElementById("deck")
+const rules = document.getElementById("rules")
+const hideRules = document.getElementById("rules-close")
+const showRules1 = document.getElementById("rules-show1")
+const showRules2 = document.getElementById("rules-show2")
+
+
+const changeDisplay = (element) => {
+    // if (element.style.display == "none") {
+    //     element.style.display = "flex"
+    // } else {
+    //     element.style.display = "none"
+    // }
+    const isDisplayNone = element.style.display === "none"
+    element.style.display = isDisplayNone ? "flex" : "none"
+}
+
+hideRules.addEventListener("click", function() { changeDisplay(rules)})
+showRules1.addEventListener("click", function() { changeDisplay(rules)})
+showRules2.addEventListener("click", function() { changeDisplay(rules)})
+
 
 //arrays of possibilities for each property
 const shapes = ["triangle", "circle", "square"]
@@ -34,7 +54,7 @@ const makeCards = (arrayOfCards) => {
         for (const word of uniqueCardArray) {
             card.classList.add(word)
         }
-        firstTwelve.appendChild(card)
+        cardDiv.appendChild(card)
         //This assigns the div to a variable that uses the index in the name
         window[`card${index}`] = card
     })

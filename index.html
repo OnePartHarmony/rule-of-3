@@ -3,37 +3,29 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Set of Things</title>
+        <title>Sets of Things</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/index.js" defer></script>
         <link rel="icon" href="./icon.png">
     </head>
     <body>
-        <!-- header with title and instructions -->
         <header>
-            <h1>Set Of Things</h1>
-            
+            <h1>Sets Of Things</h1>
+            <button id="start-ez-game">Start Easy Game</button>
+            <button id="start-regular-game">Start Regular Game</button>
+            <button id="rules-show1">Show Rules</button>
         </header>
+
+        <div id="rules">
+           <p>Here is where I will describe how to play the game: Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat iste in obcaecati libero, officiis, commodi maiores veniam corrupti vero rerum recusandae soluta enim pariatur, quisquam reiciendis eaque ipsa nulla facilis?</p>
+            <button id="rules-close">Hide Rules</button>
+        </div>
+        
         <div id="game-board">
             <div id="deck"></div>
-            <!-- div where cards are layed out -->
-            <div id="mat">
-                <p>Here is where I will describe how to play the game</p>
-                 <!-- button to populate cards -->
-                <button id="start-game">Start Game</button>
-                <!-- button for extra cards if no sets -->
-                <button id="check-possible-set">Check Set</button>
-            <!-- 15 card divs in 5 columns -->
-                <div id="first-twelve"></div>
-                <div id="extra-three"></div>
-            <!-- testing a card -->
-                <!-- <div class="card blue stripe circle"> -->
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+            <button id="rules-show2">Show Rules</button>
+            <div id="card-div"></div>
         </div>
     </body>
 </html>
