@@ -40,13 +40,16 @@ possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
 const shuffleCards = (arrayOfCards) => {
-    for (let i = arrayOfCards.length -1; i>0; i++) {
+    for (let i = (arrayOfCards.length - 1); i>0; i--) {
         let randomIndex = Math.floor(Math.random() * (i+1))
-        let currentArray = array[i]
-        array[i] = array[randomIndex]
-        array[randomIndex] = array[i]
+        let currentArray = arrayOfCards[i]
+        arrayOfCards[i] = arrayOfCards[randomIndex]
+        arrayOfCards[randomIndex] = currentArray
     }
+
 }
+
+
 
 
 // this function creates cards based on the regular array of 81 or the easy array of 27
@@ -92,12 +95,6 @@ newGame.addEventListener("click", function() {
 })
 
 
-
-
-
-
-
-//SHUFFLE THE DECK
 
 //click shape highlights
 //click 3 shapes removes or alerts if not set
