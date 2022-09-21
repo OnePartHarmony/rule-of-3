@@ -18,6 +18,8 @@ button {
     height: 2em;
 }
 
+/* title screen and rules appear in front of gameboard */
+
 header, #rules {
     flex-direction: column;
     align-items: center;
@@ -29,6 +31,7 @@ header, #rules {
 }
 
 header {
+    display: flex;
     height: 750px;
     width: 1100px;
     z-index: 1;
@@ -112,10 +115,15 @@ header button, #rules-close {
     width: 660px;
     left: 20%;
     bottom: 35%;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 33% 33% 33%;
+    grid-auto-flow: column;
 }
 
+/* list items look like white cards, and the divs within become shapes based on classes of the li */
 .card {
-    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -163,11 +171,21 @@ header button, #rules-close {
     background-color: white;
 }
 
-.stripe div {
-    background: linear-gradient(20deg, black 10%, white 10% 20%, black 20% 30%, white 30% 40%, black 40% 50%, white 50% 60%, black 60% 70%, white 70% 80%, black 80% 90%, white 90%)
+.stripe.blue div {
+    background: linear-gradient(20deg, #3772FF 10%, white 10% 20%, #3772FF 20% 30%, white 30% 40%, #3772FF 40% 50%, white 50% 60%, #3772FF 60% 70%, white 70% 80%, #3772FF 80% 90%, white 90%)
 }
 
+.stripe.red div {
+    background: linear-gradient(20deg, #C6547A 10%, white 10% 20%, #C6547A 20% 30%, white 30% 40%, #C6547A 40% 50%, white 50% 60%, #C6547A 60% 70%, white 70% 80%, #C6547A 80% 90%, white 90%)
+}
+
+.stripe.green div {
+    background: linear-gradient(20deg, #AECA68 10%, white 10% 20%, #AECA68 20% 30%, white 30% 40%, #AECA68 40% 50%, white 50% 60%, #AECA68 60% 70%, white 70% 80%, #AECA68 80% 90%, white 90%)
+}
+
+/* when in deck, cards appear to be face-down */
 .back {
+    position: absolute;
     background-color: #454372;
     background-image:  linear-gradient(30deg, #40D1D1 12%, transparent 12.5%, transparent 87%, #40D1D1 87.5%, #40D1D1), linear-gradient(150deg, #40D1D1 12%, transparent 12.5%, transparent 87%, #40D1D1 87.5%, #40D1D1), linear-gradient(30deg, #40D1D1 12%, transparent 12.5%, transparent 87%, #40D1D1 87.5%, #40D1D1), linear-gradient(150deg, #40D1D1 12%, transparent 12.5%, transparent 87%, #40D1D1 87.5%, #40D1D1), linear-gradient(60deg, #40D1D177 25%, transparent 25.5%, transparent 75%, #40D1D177 75%, #40D1D177), linear-gradient(60deg, #40D1D177 25%, transparent 25.5%, transparent 75%, #40D1D177 75%, #40D1D177);
     background-size: 20px 35px;

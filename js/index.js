@@ -34,11 +34,12 @@ const fill = ["solid", "hollow", "stripe"]
 //this function creates an array of arrays, each with a unique combination of one each of the properties
 const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
 //An easy game uses only three of the properties, while a regular game uses all 4.
-possibleCardsEasy = uniqueSort(shapes, colors, numbers)
-possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
+const possibleCardsEasy = uniqueSort(shapes, colors, numbers)
+const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
 
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
+//this is the first of a couple times I use a for statement instead of forEach so I can iterate in reverse
 const shuffleCards = (arrayOfCards) => {
     for (let i = (arrayOfCards.length - 1); i>0; i--) {
         let randomIndex = Math.floor(Math.random() * (i+1))
@@ -49,11 +50,12 @@ const shuffleCards = (arrayOfCards) => {
 
 }
 
-
+let dealCount = -1
 
 
 // this function creates cards based on the regular array of 81 or the easy array of 27
 const makeCards = (arrayOfCards) => {
+    dealCount= -1
     arrayOfCards.forEach((uniqueCardArray, index) => {
         //create a li with a unique id
         const card = document.createElement("li")
@@ -73,6 +75,8 @@ const makeCards = (arrayOfCards) => {
         deck.appendChild(card)
         //This assigns the li to a variable that uses the index in the name
         window[`card${index}`] = card
+        //this sets a number tied to the index of the top card in the deck.
+        dealCount++
     })
 }
 
@@ -100,6 +104,47 @@ newGame.addEventListener("click", function() {
 
 
 
+//when the deck is clicked
+deck.addEventListener("click", function() {
+    //clear message board
+    message.innerText = ""
+
+
+
+
+
+    //if 12, check for set
+    //if no set, alert and fill to 15
+    //if set, alert
+
+
+
+
+
+    //if fewer than twelve cards are on the mat, fill to twelve
+    //remove class "back" so they are face-up
+    while (cardMat.children.length < 12) {        
+        let realCard = document.getElementById(`${dealCount}`)
+        cardMat.appendChild(realCard)
+        realCard.classList.remove("back")    
+        dealCount--     
+    }
+
+
+})
+
+
+
+
+
+
+
+//when card is clicked
+//check if three cards are clicked
+//if not, just clear the message board
+//if so, compare properties
+//if not set, alert
+//if yes, remove cards and alert
 
 
 
@@ -108,11 +153,7 @@ newGame.addEventListener("click", function() {
 
 
 
-//click card highlights
-//click 3 cards removes or alerts if not set
-//if removed, auto-refill with delay
 
-//other button checks for possible set and adds 3 or alerts
 
 
 
