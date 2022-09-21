@@ -10,7 +10,8 @@ const cardMat = document.getElementById("card-mat")
 const deck = document.getElementById("deck")
 const message = document.getElementById("message")
 const newGame = document.getElementById("new-game")
-
+const canvas = document.querySelector("canvas")
+const win = document.getElementById("win")
 
 
 //This function changes an element's display between flex and none
@@ -36,7 +37,7 @@ const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e]
 //An easy game uses only three of the properties, while a regular game uses all 4.
 const possibleCardsEasy = uniqueSort(shapes, colors, numbers)
 const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
-const possibleCardsCurrentGame = []
+let possibleCardsCurrentGame = []
 
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
@@ -93,7 +94,7 @@ startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)
 startRegularGame.addEventListener("click", function() {startGame(possibleCardsRegular)})
 
 //the new game button removes all the cards and returns to the title screen
-newGame.addEventListener("click", function() {
+const resetGame = () => {
     while (cardMat.firstChild) {
         cardMat.removeChild(cardMat.firstChild)
     }
@@ -101,11 +102,14 @@ newGame.addEventListener("click", function() {
         deck.removeChild(deck.firstChild)
     }
     changeDisplay(titleScreen)
-    deck.style.border = ""
-})
+    deck.style.border = "" 
+    possibleCardsCurrentGame = []
+}
+newGame.addEventListener("click", function() {resetGame()})
 
 //pulls the top card from deck and appends it to mat, removes "back" so the front will show.
 const drawCard = () => {
+    if (dealCount < 0) {return}
     message.innerText = ""
     let elementCard = document.getElementById(`${dealCount}`)
     cardMat.appendChild(elementCard)
@@ -158,12 +162,8 @@ const checkMatForSet = () => {
                 }
             }
         })
-        if (containsSet == true) {
-            message.innerText = "There's a set here.  Keep looking!"
-        } else {
-            message.innerText = "You were right; there was no set.\nHave three more cards!"
-            while (cardMat.children.length < 15) { drawCard() }
-        }
+        return containsSet
+
 }
 
 
@@ -194,6 +194,46 @@ const unclickCards = () => {
     }
 }
 
+
+
+
+
+
+//Circles of random colors appear after a win
+const ctx = canvas.getContext("2d")
+const makeRandomCircle = () => {
+    let randomRed = Math.floor(Math.random() * 255)
+    let randomGreen = Math.floor(Math.random() * 255)
+    ctx.fillStyle = `rgb(${randomRed}, ${randomGreen}, 175)`
+    x = Math.floor(Math.random() * 1050)
+    y = Math.floor(Math.random() * 700)
+    radius = Math.floor(Math.random() * 100)
+    ctx.beginPath()
+    ctx.arc(x, y, radius, 0, Math.PI * 2)
+    ctx.closePath()
+    ctx.fill()
+}
+
+const winGame = () => {
+    canvas.style.display = "flex"
+    let confetti = setInterval(makeRandomCircle, 10)
+    setTimeout(() => {win.style.display = "block"}, 2000)
+    canvas.addEventListener("click", () => {
+        clearInterval(confetti)
+        ctx.clearRect(0,0,1100,750)
+        canvas.style.display = "none"
+        win.style.display = "none"
+        resetGame()
+    })
+}
+
+
+
+
+
+
+
+
 const clickCard = (card) => {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
@@ -221,11 +261,15 @@ const clickCard = (card) => {
                         clickedCards[0].remove()
                     }
                 }, 800)
-                setTimeout(() => {
-                    while (cardMat.children.length < 12) {        
-                        drawCard()
-                    }
-                }, 1500)
+                if (dealCount < 0) {
+                    winGame()
+                } else {
+                    setTimeout(() => {
+                        while (cardMat.children.length < 12 && dealCount >= 0) {        
+                            drawCard()
+                        }
+                    }, 1500)  
+                }
             }
         }
     }
@@ -235,7 +279,13 @@ const clickCard = (card) => {
 deck.addEventListener("click", function() {
     unclickCards()
     if (cardMat.children.length == 12) {
-        checkMatForSet()
+        let hasASet = checkMatForSet()
+        if (hasASet == true) {
+            message.innerText = "There's a set here.  Keep looking!"
+        } else {
+            message.innerText = "You were right; there was no set.\nHave three more cards!"
+            while (cardMat.children.length < 15) { drawCard() }
+        }
     }
     while (cardMat.children.length < 12) {        
         drawCard()
