@@ -102,7 +102,6 @@ header button, #rules-close {
     position: relative;
     height: 192px;
     width: 144px;
-    /* border: 2px solid black; */
     overflow: hidden;
     border-radius: 10%;
     left: 2%;
@@ -111,16 +110,12 @@ header button, #rules-close {
 #card-mat {
     list-style: none;
     position: relative;
-    border: 2px solid white;
+    /* border: 2px solid white; */
     height: 550px;
     width: 700px;
     left: 20%;
     bottom: 35%;
     padding: 0;
-    /* display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
-    grid-template-rows: 33% 33% 33%;
-    grid-auto-flow: column; */
     display: flex;
     flex-wrap: wrap;
     align-content: center;

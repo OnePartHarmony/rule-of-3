@@ -101,18 +101,23 @@ newGame.addEventListener("click", function() {
         deck.removeChild(deck.firstChild)
     }
     changeDisplay(titleScreen)
+    deck.style.border = ""
 })
 
 //pulls the top card from deck and appends it to mat, removes "back" so the front will show.
 const drawCard = () => {
+    message.innerText = ""
     let elementCard = document.getElementById(`${dealCount}`)
     cardMat.appendChild(elementCard)
     elementCard.classList.remove("back")
     elementCard.addEventListener("click", function () {clickCard(this)})
+    if (dealCount == 0) {
+        deck.style.border = "2px solid black"
+        dealCount--
+        return
+    }
     dealCount-- 
 }
-
-
 
 //check mat for a possilbe set
     //if no set, alert player and fill to 15
@@ -127,10 +132,7 @@ const checkMatForSet = () => {
             propertiesInPlay.push(possibleCardsCurrentGame[intId])
         })
         //find if within that array, there are three arrays that for each index they either all match or all don't
-            //for each pair of arrays I want to check for a third that for each index satisfies:
-                //if (arrayA[0] === arrayB[0]) => arrayA[0] === arrayC[0]
-                //else if (arrayA[0] != arrayB[0]) => (arrayA[0] != arrayC[0]) && (arrayB[0] != arrayC[0])
-                //same for index 1-3
+            //for each pair of arrays I want to check for a third that for each index that completes the set
         let containsSet = false
         propertiesInPlay.forEach((firstCard, index) => {
             for (let secondCardIndex = index + 1; secondCardIndex < 12; secondCardIndex++) {
@@ -163,9 +165,6 @@ const checkMatForSet = () => {
             while (cardMat.children.length < 15) { drawCard() }
         }
 }
-
-
-
 
 
 //This function checks if three cards are a set
@@ -221,36 +220,26 @@ const clickCard = (card) => {
                     while (clickedCards.length > 0) {
                         clickedCards[0].remove()
                     }
-                }, 1000)
+                }, 800)
+                setTimeout(() => {
+                    while (cardMat.children.length < 12) {        
+                        drawCard()
+                    }
+                }, 1500)
             }
         }
     }
 }
-
-
-
-
-// //when a card on the mat is clicked
-// const assignClickToCards = () => {
-//    let cardsInPlay = Array.from(cardMat.children)
-//     cardsInPlay.forEach(card => {
-//         card.addEventListener("click", function () {clickCard(this)})
-//     })
-// }
-        
-
+     
 //when the deck is clicked
 deck.addEventListener("click", function() {
     unclickCards()
-    message.innerText = ""
-
     if (cardMat.children.length == 12) {
         checkMatForSet()
     }
     while (cardMat.children.length < 12) {        
         drawCard()
     }
-    // assignClickToCards()
 })
 
 
