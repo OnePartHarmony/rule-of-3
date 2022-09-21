@@ -76,8 +76,6 @@ const makeCards = (arrayOfCards) => {
             card.classList.add(word)
         }
         deck.appendChild(card)
-        //This assigns the li to a variable that uses the index in the name
-        window[`card${index}`] = card
         //this sets a number tied to the index of the top card in the deck.
         dealCount++
     })
@@ -105,74 +103,165 @@ newGame.addEventListener("click", function() {
     changeDisplay(titleScreen)
 })
 
+//pulls the top card from deck and appends it to mat, removes "back" so the front will show.
+const drawCard = () => {
+    let realCard = document.getElementById(`${dealCount}`)
+    cardMat.appendChild(realCard)
+    realCard.classList.remove("back")    
+    dealCount--   
+}
 
 
-//when the deck is clicked
-deck.addEventListener("click", function() {
-    //clear message board
-    message.innerText = ""
 
-    //if 12, check for set
-    //if no set, alert and fill to 15
-    //if set, alert
-    if (cardMat.children.length == 12) {
+//check mat for a possilbe set
+    //if no set, alert player and fill to 15
+    //if set, alert player to keep going
+const checkMatForSet = () => {
         //for each element on the mat, find the matching array and push it to a new array
         let cardsInPlay = Array.from(cardMat.children)
-        console.log(cardsInPlay)
         let idsInPlay = cardsInPlay.map(card => {return card.id})
         let propertiesInPlay = []
         idsInPlay.forEach(stringId => {
             let intId = parseInt(stringId)
             propertiesInPlay.push(possibleCardsCurrentGame[intId])
-            console.log(propertiesInPlay)
         })
         //find if within that array, there are three arrays that for each index they either all match or all don't
             //for each pair of arrays I want to check for a third that for each index satisfies:
                 //if (arrayA[0] === arrayB[0]) => arrayA[0] === arrayC[0]
                 //else if (arrayA[0] != arrayB[0]) => (arrayA[0] != arrayC[0]) && (arrayB[0] != arrayC[0])
                 //same for index 1-3
-        let containsSet = propertiesInPlay.includes((firstCard, index) => {
+        let containsSet = false
+        propertiesInPlay.forEach((firstCard, index) => {
             for (let secondCardIndex = index + 1; secondCardIndex < 12; secondCardIndex++) {
                 let secondCard = propertiesInPlay[secondCardIndex]
-                propertiesInPlay.includes(thirdCard => {
+                for (let thirdCardIndex = secondCardIndex + 1; thirdCardIndex < 12; thirdCardIndex++) {
+                    let thirdCard = propertiesInPlay[thirdCardIndex]
+                    let trueCount = 0
                     for(let propertyIndex = 0; propertyIndex < firstCard.length; propertyIndex++) {
                         if (firstCard[propertyIndex] == secondCard[propertyIndex]) {
-                            firstCard[propertyIndex] == thirdCard[propertyIndex]
+                            if (firstCard[propertyIndex] == thirdCard[propertyIndex]) {
+                                trueCount++
+                            }
                         } else if (firstCard[propertyIndex] != secondCard[propertyIndex]) {
-                            (firstCard[propertyIndex] != thirdCard[propertyIndex]) && (secondCard[propertyIndex] != thirdCard[propertyIndex])
+                            if ((firstCard[propertyIndex] != thirdCard[propertyIndex]) && (secondCard[propertyIndex] != thirdCard[propertyIndex])){
+                                trueCount++
+
+                            }
                         }
                     }
-                }) 
+                    if (trueCount == firstCard.length) {
+                        containsSet = true
+                    }
+                }
             }
         })
-
-        if containsSet = true {
+        if (containsSet == true) {
             message.innerText = "There's a set here.  Keep looking!"
         } else {
-            while (cardMat.children.length < 15) {        
-                let realCard = document.getElementById(`${dealCount}`)
-                cardMat.appendChild(realCard)
-                realCard.classList.remove("back")    
-                dealCount--     
+            message.innerText = "You were right; there was no set.\nHave three more cards!"
+            while (cardMat.children.length < 15) { drawCard() }
+        }
+}
+
+
+
+
+
+//This function checks if three cards are a set
+//if not a set, alert player
+//if it is a set, remove cards and alert player
+const checkSet = (threeCardArray) => {
+    let trueCount = 0
+    let card1 = threeCardArray[0]
+    let card2 = threeCardArray[1]
+    let card3 = threeCardArray[2]
+    for(let propertyIndex = 0; propertyIndex < card1.length; propertyIndex++) {
+        if (card1[propertyIndex] == card2[propertyIndex]) {
+            if (card1[propertyIndex] == card3[propertyIndex]) {
+                trueCount++
+            }
+        } else if (card1[propertyIndex] != card2[propertyIndex]) {
+            if ((card1[propertyIndex] != card3[propertyIndex]) && (card2[propertyIndex] != card3[propertyIndex])){
+                trueCount++
             }
         }
-
-
     }
+    if (trueCount == card1.length) {
+        return true
+    }
+}
+
+const unclickCards = () => {
+    let clickedCards = document.querySelectorAll(".clicked")
+    while (clickedCards.length > 0) {
+        clickedCards[0].classList.remove("clicked")
+    }
+}
+
+const clickCard = (card) => {
+    card.classList.toggle("clicked")
+    if (card.classList.contains("clicked")) {
+        //check if three cards are clicked, if not, just clear the message board
+        let clickedCards =  document.querySelectorAll(".clicked")          
+        if (clickedCards.length < 3){
+            message.innerText = ""
+            return
+            //if three cards clicked, compare properties
+        } else if (clickedCards.length == 3) {
+            let cardsToCheck = []
+            for (let i=0; i< clickedCards.length; i++) {
+                let id = parseInt(clickedCards[i].id)
+                let uniqueArray = possibleCardsCurrentGame[id]
+                cardsToCheck.push(uniqueArray)
+            }
+            let isASet = checkSet(cardsToCheck)
+            if (isASet != true){
+                message.innerText = "That's not a set.\nTry Again."
+                unclickCards()
+            } else if (isASet == true) {
+                message.innerText = "It's a set!\nKeep up the good work."
+                setTimeout(() => {
+                    while (clickedCards.length > 0) {
+                        cardMat.remove(clickedCards[0])
+                    }
+                })
+            }
+        }
+    }
+}
 
 
 
 
-    //if fewer than twelve cards are on the mat, fill to twelve
-    //remove class "back" so they are face-up
+//when a card on the mat is clicked
+const assignClickToCards = () => {
+   let cardsInPlay = Array.from(cardMat.children)
+    cardsInPlay.forEach(card => {
+        card.addEventListener("click", function () {clickCard(this)})
+    })
+}
+        
+
+
+
+
+
+
+
+
+
+//when the deck is clicked
+deck.addEventListener("click", function() {
+    unclickCards()
+    message.innerText = ""
+
+    if (cardMat.children.length == 12) {
+        checkMatForSet()
+    }
     while (cardMat.children.length < 12) {        
-        let realCard = document.getElementById(`${dealCount}`)
-        cardMat.appendChild(realCard)
-        realCard.classList.remove("back")    
-        dealCount--     
+        drawCard()
     }
-
-
+    assignClickToCards()
 })
 
 
@@ -180,13 +269,6 @@ deck.addEventListener("click", function() {
 
 
 
-
-//when card is clicked
-//check if three cards are clicked
-//if not, just clear the message board
-//if so, compare properties
-//if not set, alert
-//if yes, remove cards and alert
 
 
 

@@ -223,3 +223,7 @@ header button, #rules-close {
 .back div {
     display: none;
 }
+
+.clicked {
+    background-color: #bdbcdb;
+}
