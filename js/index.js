@@ -36,6 +36,7 @@ const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e]
 //An easy game uses only three of the properties, while a regular game uses all 4.
 const possibleCardsEasy = uniqueSort(shapes, colors, numbers)
 const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
+const possibleCardsCurrentGame = []
 
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
@@ -57,6 +58,8 @@ let dealCount = -1
 const makeCards = (arrayOfCards) => {
     dealCount= -1
     arrayOfCards.forEach((uniqueCardArray, index) => {
+        //fill an identical array to work from during this game
+        possibleCardsCurrentGame.push(uniqueCardArray)
         //create a li with a unique id
         const card = document.createElement("li")
         //create shapes inside the li, quantity depending on number property
@@ -84,7 +87,7 @@ const makeCards = (arrayOfCards) => {
 const startGame = (arrayOfCards) => {
     shuffleCards(arrayOfCards)
     makeCards(arrayOfCards)
-     message.innerText = "Click on the deck to deal."
+    message.innerText = "Click on the deck to deal."
     changeDisplay(titleScreen)
 }
 
@@ -109,14 +112,53 @@ deck.addEventListener("click", function() {
     //clear message board
     message.innerText = ""
 
-
-
-
-
     //if 12, check for set
     //if no set, alert and fill to 15
     //if set, alert
+    if (cardMat.children.length == 12) {
+        //for each element on the mat, find the matching array and push it to a new array
+        let cardsInPlay = Array.from(cardMat.children)
+        console.log(cardsInPlay)
+        let idsInPlay = cardsInPlay.map(card => {return card.id})
+        let propertiesInPlay = []
+        idsInPlay.forEach(stringId => {
+            let intId = parseInt(stringId)
+            propertiesInPlay.push(possibleCardsCurrentGame[intId])
+            console.log(propertiesInPlay)
+        })
+        //find if within that array, there are three arrays that for each index they either all match or all don't
+            //for each pair of arrays I want to check for a third that for each index satisfies:
+                //if (arrayA[0] === arrayB[0]) => arrayA[0] === arrayC[0]
+                //else if (arrayA[0] != arrayB[0]) => (arrayA[0] != arrayC[0]) && (arrayB[0] != arrayC[0])
+                //same for index 1-3
+        let containsSet = propertiesInPlay.includes((firstCard, index) => {
+            for (let secondCardIndex = index + 1; secondCardIndex < 12; secondCardIndex++) {
+                let secondCard = propertiesInPlay[secondCardIndex]
+                propertiesInPlay.includes(thirdCard => {
+                    for(let propertyIndex = 0; propertyIndex < firstCard.length; propertyIndex++) {
+                        if (firstCard[propertyIndex] == secondCard[propertyIndex]) {
+                            firstCard[propertyIndex] == thirdCard[propertyIndex]
+                        } else if (firstCard[propertyIndex] != secondCard[propertyIndex]) {
+                            (firstCard[propertyIndex] != thirdCard[propertyIndex]) && (secondCard[propertyIndex] != thirdCard[propertyIndex])
+                        }
+                    }
+                }) 
+            }
+        })
 
+        if containsSet = true {
+            message.innerText = "There's a set here.  Keep looking!"
+        } else {
+            while (cardMat.children.length < 15) {        
+                let realCard = document.getElementById(`${dealCount}`)
+                cardMat.appendChild(realCard)
+                realCard.classList.remove("back")    
+                dealCount--     
+            }
+        }
+
+
+    }
 
 
 
