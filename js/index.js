@@ -105,10 +105,11 @@ newGame.addEventListener("click", function() {
 
 //pulls the top card from deck and appends it to mat, removes "back" so the front will show.
 const drawCard = () => {
-    let realCard = document.getElementById(`${dealCount}`)
-    cardMat.appendChild(realCard)
-    realCard.classList.remove("back")    
-    dealCount--   
+    let elementCard = document.getElementById(`${dealCount}`)
+    cardMat.appendChild(elementCard)
+    elementCard.classList.remove("back")
+    elementCard.addEventListener("click", function () {clickCard(this)})
+    dealCount-- 
 }
 
 
@@ -176,14 +177,10 @@ const checkSet = (threeCardArray) => {
     let card2 = threeCardArray[1]
     let card3 = threeCardArray[2]
     for(let propertyIndex = 0; propertyIndex < card1.length; propertyIndex++) {
-        if (card1[propertyIndex] == card2[propertyIndex]) {
-            if (card1[propertyIndex] == card3[propertyIndex]) {
+        if ((card1[propertyIndex] == card2[propertyIndex]) && (card1[propertyIndex] == card3[propertyIndex])) {
                 trueCount++
-            }
-        } else if (card1[propertyIndex] != card2[propertyIndex]) {
-            if ((card1[propertyIndex] != card3[propertyIndex]) && (card2[propertyIndex] != card3[propertyIndex])){
+        } else if ((card1[propertyIndex] != card2[propertyIndex]) && ((card1[propertyIndex] != card3[propertyIndex]) && (card2[propertyIndex] != card3[propertyIndex]))) {
                 trueCount++
-            }
         }
     }
     if (trueCount == card1.length) {
@@ -192,7 +189,7 @@ const checkSet = (threeCardArray) => {
 }
 
 const unclickCards = () => {
-    let clickedCards = document.querySelectorAll(".clicked")
+    let clickedCards = document.getElementsByClassName("clicked")
     while (clickedCards.length > 0) {
         clickedCards[0].classList.remove("clicked")
     }
@@ -202,7 +199,7 @@ const clickCard = (card) => {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
         //check if three cards are clicked, if not, just clear the message board
-        let clickedCards =  document.querySelectorAll(".clicked")          
+        let clickedCards =  document.getElementsByClassName("clicked")          
         if (clickedCards.length < 3){
             message.innerText = ""
             return
@@ -222,9 +219,9 @@ const clickCard = (card) => {
                 message.innerText = "It's a set!\nKeep up the good work."
                 setTimeout(() => {
                     while (clickedCards.length > 0) {
-                        cardMat.remove(clickedCards[0])
+                        clickedCards[0].remove()
                     }
-                })
+                }, 1000)
             }
         }
     }
@@ -233,22 +230,14 @@ const clickCard = (card) => {
 
 
 
-//when a card on the mat is clicked
-const assignClickToCards = () => {
-   let cardsInPlay = Array.from(cardMat.children)
-    cardsInPlay.forEach(card => {
-        card.addEventListener("click", function () {clickCard(this)})
-    })
-}
+// //when a card on the mat is clicked
+// const assignClickToCards = () => {
+//    let cardsInPlay = Array.from(cardMat.children)
+//     cardsInPlay.forEach(card => {
+//         card.addEventListener("click", function () {clickCard(this)})
+//     })
+// }
         
-
-
-
-
-
-
-
-
 
 //when the deck is clicked
 deck.addEventListener("click", function() {
@@ -261,7 +250,7 @@ deck.addEventListener("click", function() {
     while (cardMat.children.length < 12) {        
         drawCard()
     }
-    assignClickToCards()
+    // assignClickToCards()
 })
 
 
