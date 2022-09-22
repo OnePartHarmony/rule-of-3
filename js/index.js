@@ -12,6 +12,8 @@ const message = document.getElementById("message")
 const newGame = document.getElementById("new-game")
 const canvas = document.querySelector("canvas")
 const win = document.getElementById("win")
+const timer = document.getElementById("timer")
+const stats = document.getElementById("stats")
 
 
 //This function changes an element's display between flex and none
@@ -24,6 +26,15 @@ hideRules.addEventListener("click", function() { changeDisplay(rules)})
 showRules1.addEventListener("click", function() { changeDisplay(rules)})
 showRules2.addEventListener("click", function() { changeDisplay(rules)})
 
+//Variables declared here to be used in multiple functions
+let dealCount = -1
+let startTime = ""
+let gameTimes = []
+let possibleCardsCurrentGame = []
+let totalSecondsElapsed = ""
+let minutesElapsed = ""
+let secondsElapsed = ""
+let timerInterval = ""
 
 //arrays of possibilities for each property
 const shapes = ["triangle", "circle", "square"]
@@ -32,12 +43,12 @@ const numbers = [1,2,3]
 const fill = ["solid", "hollow", "stripe"]
 
 
-//this function creates an array of arrays, each with a unique combination of one each of the properties
+//this function creates an array of arrays, each with a unique combination of one each of the properties (this is the cartesian product)
 const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
 //An easy game uses only three of the properties, while a regular game uses all 4.
 const possibleCardsEasy = uniqueSort(shapes, colors, numbers)
 const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
-let possibleCardsCurrentGame = []
+
 
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
@@ -51,9 +62,6 @@ const shuffleCards = (arrayOfCards) => {
     }
 
 }
-
-let dealCount = -1
-
 
 // this function creates cards based on the regular array of 81 or the easy array of 27
 const makeCards = (arrayOfCards) => {
@@ -104,23 +112,46 @@ const resetGame = () => {
     changeDisplay(titleScreen)
     deck.style.border = "" 
     possibleCardsCurrentGame = []
+    gameTimes = []
 }
 newGame.addEventListener("click", function() {resetGame()})
 
-//pulls the top card from deck and appends it to mat, removes "back" so the front will show.
-const drawCard = () => {
+
+const getTimeElapsed = () => {
+    let currentTime = Date.now()
+    let currentTimeElapsed = currentTime - startTime
+    totalSecondsElapsed = Math.floor(currentTimeElapsed / 1000)
+    minutesElapsed = Math.floor(totalSecondsElapsed / 60)
+    secondsElapsed = Math.floor(totalSecondsElapsed - (minutesElapsed * 60))
+    if (secondsElapsed < 10) {
+        secondsElapsed = `0${secondsElapsed}`
+    }
+}
+
+//pulls the top 3 cards from deck and appends them to mat, removing ".back" so the front will show.
+const draw3Cards = () => {
     if (dealCount < 0) {return}
     message.innerText = ""
-    let elementCard = document.getElementById(`${dealCount}`)
-    cardMat.appendChild(elementCard)
-    elementCard.classList.remove("back")
-    elementCard.addEventListener("click", function () {clickCard(this)})
-    if (dealCount == 0) {
-        deck.style.border = "2px solid black"
-        dealCount--
-        return
+    for (let i=0; i<3; i++) {
+        let elementCard = document.getElementById(`${dealCount}`)
+        cardMat.appendChild(elementCard)
+        elementCard.classList.remove("back")
+        elementCard.addEventListener("click", function () {clickCard(this)})
+        if (dealCount == 0) {
+            deck.style.border = "2px solid black"
+            dealCount--
+            return
+        }
+        dealCount-- 
     }
-    dealCount-- 
+    timer.innerText = "0:00"
+    startTime = Date.now()
+    if (cardMat.children.length >= 12) {
+    timerInterval = setInterval(() => {
+        getTimeElapsed()
+        timer.innerText = `${minutesElapsed}:${secondsElapsed}`
+    }, 1000)
+    }
 }
 
 //check mat for a possilbe set
@@ -194,11 +225,6 @@ const unclickCards = () => {
     }
 }
 
-
-
-
-
-
 //Circles of random colors appear after a win
 const ctx = canvas.getContext("2d")
 const makeRandomCircle = () => {
@@ -233,7 +259,7 @@ const winGame = () => {
 
 
 
-
+//when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates accordingly
 const clickCard = (card) => {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
@@ -252,9 +278,12 @@ const clickCard = (card) => {
             }
             let isASet = checkSet(cardsToCheck)
             if (isASet != true){
-                message.innerText = "That's not a set.\nTry Again."
+                message.innerText = "That's not a set.\nYour timer is still running.\nTry Again."
                 unclickCards()
             } else if (isASet == true) {
+                clearInterval(timerInterval)
+                console.log(`${totalSecondsElapsed}`)
+
                 message.innerText = "It's a set!\nKeep up the good work."
                 setTimeout(() => {
                     while (clickedCards.length > 0) {
@@ -266,7 +295,7 @@ const clickCard = (card) => {
                 } else {
                     setTimeout(() => {
                         while (cardMat.children.length < 12 && dealCount >= 0) {        
-                            drawCard()
+                            draw3Cards()
                         }
                     }, 1500)  
                 }
@@ -284,18 +313,37 @@ deck.addEventListener("click", function() {
             message.innerText = "There's a set here.  Keep looking!"
         } else {
             message.innerText = "You were right; there was no set.\nHave three more cards!"
-            while (cardMat.children.length < 15) { drawCard() }
+            while (cardMat.children.length < 15) {draw3Cards()}
         }
     }
     while (cardMat.children.length < 12) {        
-        drawCard()
+        draw3Cards()
     }
+    // timer.innerText = "0:00"
+    // startTime = Date.now()
+    // window.runningTimer = setInterval(runTimer, 1000)
 })
 
 
 
 
+//timer
+//let startTime = Date.now()
+//let currentTime = Date.now()
+//let endTime = Date.now()
+//let currentTimeElapsed = currentTime - startTime
+//let fullTimeElapsed = endTime - startTime
 
+//set startTime at deal, set timer to 0
+//setInterval to update timer every 1000 miliseconds, to currentTimeElapsed
+//set endTime at isASet == true, clearInterval, report fullTimeElapsed
+//push fullTimeElapsed to times array, at win report average time by using .reduce
+//new game clears times array
+
+
+//totalSecondsElapsed = time/1000
+//minutes = Math.floor(totalSecondsElapsed/60)
+//seconds = totalSecondsElapsed - minutes
 
 
 
