@@ -205,8 +205,8 @@ const makeRandomCircle = () => {
     let randomRed = Math.floor(Math.random() * 255)
     let randomGreen = Math.floor(Math.random() * 255)
     ctx.fillStyle = `rgb(${randomRed}, ${randomGreen}, 175)`
-    x = Math.floor(Math.random() * 1050)
-    y = Math.floor(Math.random() * 700)
+    x = Math.floor(Math.random() * 1400)
+    y = Math.floor(Math.random() * 900)
     radius = Math.floor(Math.random() * 100)
     ctx.beginPath()
     ctx.arc(x, y, radius, 0, Math.PI * 2)
