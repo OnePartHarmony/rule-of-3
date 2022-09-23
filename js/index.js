@@ -79,8 +79,7 @@ const makeCards = (arrayOfCards) => {
             card.appendChild(cardShape)
         }
         card.setAttribute("id", `${index}`)
-        card.classList.add("card")
-        card.classList.add("back")
+        card.classList.add("card", "deckCard", "back")
         //This assigns classes based on properties
         for (const word of uniqueCardArray) {
             card.classList.add(word)
@@ -137,8 +136,11 @@ const draw3Cards = () => {
     message.innerText = ""
     for (let i=0; i<3; i++) {
         let elementCard = document.getElementById(`${dealCount}`)
-        cardMat.appendChild(elementCard)
+        cardMat.appendChild(elementCard)        
+        elementCard.classList.remove("deckCard")
+        setTimeout(() => {      
         elementCard.classList.remove("back")
+        }, (i * 200))
         elementCard.addEventListener("click", function () {clickCard(this)})
         if (dealCount == 0) {
             deck.style.border = "2px solid black"

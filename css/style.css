@@ -166,6 +166,7 @@ header button, #rules-close {
     width: 135px;
     border-radius: 10%;
     padding: 3px;
+    transition: background-color .5s;
 }
 
 .card div {
@@ -220,33 +221,39 @@ header button, #rules-close {
 
 /* when in deck, cards appear to be face-down */
 .back {
-    position: absolute;
+
     background-color: #2B4570;
     background-image:  linear-gradient(30deg, #DFCCEF 12%, transparent 12.5%, transparent 87%, #DFCCEF 87.5%, #DFCCEF), linear-gradient(150deg, #DFCCEF 12%, transparent 12.5%, transparent 87%, #DFCCEF87.5%, #DFCCEF), linear-gradient(30deg, #DFCCEF 12%, transparent 12.5%, transparent 87%, #DFCCEF 87.5%, #DFCCEF), linear-gradient(150deg, #DFCCEF 12%, transparent 12.5%, transparent 87%, #DFCCEF 87.5%, #DFCCEF), linear-gradient(60deg, #DFCCEF77 25%, transparent 25.5%, transparent 75%, #DFCCEF77 75%, #DFCCEF77), linear-gradient(60deg, #DFCCEF77 25%, transparent 25.5%, transparent 75%, #DFCCEF77 75%, #DFCCEF77);
     background-size: 20px 35px;
     background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
 }
 
-.back:first-child {
+.back div {
+    display: none;
+}
+
+.deckCard {
+    position: absolute; 
+}
+
+.deckCard:first-child {
     left: -5px;
     top: -5px;
 }
-.back:nth-child(2) {
+.deckCard:nth-child(2) {
     top: 1px;
     left: 1px;
 }
-.back:nth-child(3) {
+.deckCard:nth-child(3) {
     top: 7px;
     left: 7px;
 }
-.back:nth-child(n+4) {
+.deckCard:nth-child(n+4) {
     top: 12px;
     left: 12px;
 }
 
-.back div {
-    display: none;
-}
+
 
 .clicked {
     background-color: #e7d9f4;
