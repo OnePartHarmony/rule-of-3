@@ -11,7 +11,7 @@ const deck = document.getElementById("deck")
 const message = document.getElementById("message")
 const newGame = document.getElementById("new-game")
 const canvas = document.querySelector("canvas")
-const win = document.getElementById("win")
+const winText = document.getElementById("win")
 const timer = document.getElementById("timer")
 const stats = document.getElementById("stats")
 
@@ -146,13 +146,14 @@ const checkMatForSet = () => {
             let intId = parseInt(stringId)
             propertiesInPlay.push(possibleCardsCurrentGame[intId])
         })
+        console.log(propertiesInPlay)
         //find if within that array, there are three arrays that for each index they either all match or all don't
             //for each pair of arrays I want to check for a third that for each index that completes the set
         let containsSet = false
         propertiesInPlay.forEach((firstCard, index) => {
-            for (let secondCardIndex = index + 1; secondCardIndex < 12; secondCardIndex++) {
+            for (let secondCardIndex = index + 1; secondCardIndex < propertiesInPlay.length; secondCardIndex++) {
                 let secondCard = propertiesInPlay[secondCardIndex]
-                for (let thirdCardIndex = secondCardIndex + 1; thirdCardIndex < 12; thirdCardIndex++) {
+                for (let thirdCardIndex = secondCardIndex + 1; thirdCardIndex < propertiesInPlay.length; thirdCardIndex++) {
                     let thirdCard = propertiesInPlay[thirdCardIndex]
                     let trueCount = 0
                     for(let propertyIndex = 0; propertyIndex < firstCard.length; propertyIndex++) {
@@ -163,7 +164,6 @@ const checkMatForSet = () => {
                         } else if (firstCard[propertyIndex] != secondCard[propertyIndex]) {
                             if ((firstCard[propertyIndex] != thirdCard[propertyIndex]) && (secondCard[propertyIndex] != thirdCard[propertyIndex])){
                                 trueCount++
-
                             }
                         }
                     }
@@ -235,14 +235,14 @@ const logStats = () => {
 const winGame = () => {
     canvas.style.display = "flex"
     let confetti = setInterval(makeRandomCircle, 10)
-    setTimeout(() => {win.style.display = "block"}, 2000)
+    setTimeout(() => {winText.style.display = "block"}, 2000)
     gameCount++
     logStats()
     canvas.addEventListener("click", () => {
         clearInterval(confetti)
         ctx.clearRect(0,0,1100,750)
         canvas.style.display = "none"
-        win.style.display = "none"
+        winText.style.display = "none"
         resetGame()
     })
 }
@@ -290,7 +290,7 @@ const drawCard = () => {
     dealCount--
 }
 
-//when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates accordingly
+//when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates card mat, timer, and message accordingly
 const clickCard = (card) => {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
@@ -302,7 +302,7 @@ const clickCard = (card) => {
             //if three cards clicked, compare properties
         } else if (clickedCards.length == 3) {
             let cardsToCheck = []
-            for (let i=0; i< clickedCards.length; i++) {
+            for (let i=0; i < 3; i++) {
                 let id = parseInt(clickedCards[i].id)
                 let uniqueArray = possibleCardsCurrentGame[id]
                 cardsToCheck.push(uniqueArray)
@@ -321,7 +321,14 @@ const clickCard = (card) => {
                     }
                 }, 800)
                 if (dealCount < 0) {
-                    winGame()
+                    setTimeout (() => {
+                        let oneLastSet = checkMatForSet()
+                        if (oneLastSet == true){
+                            message.innerText = "No more cards in deck.\nFind the last sets to win!"
+                        } else { 
+                            winGame() 
+                        }  
+                    },1000)
                 } else {
                     setTimeout(() => {
                         while (cardMat.children.length < 12 && dealCount >= 0) {        
