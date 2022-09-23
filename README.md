@@ -81,9 +81,9 @@ When a player clicks 3 cards, I will use a function checkWin() to decide if they
 When a player clicks check set, a function checkSet() will check if there are possible sets and if not, draw three more cards.
 
 
-## Schedule for the week
+<!-- ## Schedule for the week
 Monday: setup general layout of objects in Html, work on basic functions and css styling of card shapes.
 Tuesday: work on js in day, work on some of the visual side in the evening
 Wednesday: work on js during the day, in the evening reassess how far I've gotten, and add or reduce details, plan for next two days
 Thursday-Saturday: execute new plan
-Sunday: finishing details / submit project.
+Sunday: finishing details / submit project. -->

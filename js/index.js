@@ -36,6 +36,7 @@ let minutesElapsed = ""
 let secondsElapsed = ""
 let timerInterval = ""
 let gameCount = 0
+let drawCount = 0
 
 //arrays of possibilities for each property
 const shapes = ["triangle", "circle", "square"]
@@ -70,19 +71,28 @@ const makeCards = (arrayOfCards) => {
     arrayOfCards.forEach((uniqueCardArray, index) => {
         //fill an identical array to work from during this game
         possibleCardsCurrentGame.push(uniqueCardArray)
-        //create a li with a unique id
+        //create a li with a unique id, filled with an inner, front, and back
         const card = document.createElement("li")
-        //create shapes inside the li, quantity depending on number property
+        const inner = document.createElement("div")
+        inner.classList.add("innerCard")
+        card.appendChild(inner)
+        const front = document.createElement("div")
+        front.classList.add("cardFront")
+        inner.appendChild(front)
+        const back = document.createElement("div")
+        back.classList.add("cardBack")
+        inner.appendChild(back)
+        //create shapes on the front, quantity depending on number property
         let intNumber = parseInt(uniqueCardArray[2])
         for (let i=1; i <= intNumber; i++ ) {
             let cardShape = document.createElement("div")
-            card.appendChild(cardShape)
+            front.appendChild(cardShape)
         }
         card.setAttribute("id", `${index}`)
-        card.classList.add("card", "deckCard", "back")
+        card.classList.add("card", "deckCard")
         //This assigns classes based on properties
         for (const word of uniqueCardArray) {
-            card.classList.add(word)
+            front.classList.add(word)
         }
         deck.appendChild(card)
         //this sets a number tied to the index of the top card in the deck.
@@ -111,7 +121,8 @@ const resetGame = () => {
     }
     titleScreen.style.display = "grid"
     deck.style.border = ""
-    timer.innerText = "0:00" 
+    clearInterval(timerInterval)
+    timer.innerText = "0:00"
     possibleCardsCurrentGame = []
     gameTimes = []
 }
@@ -119,45 +130,9 @@ newGame.addEventListener("click", function() {resetGame()})
 
 
 
-const getTimeElapsed = () => {
-    let currentTime = Date.now()
-    let currentTimeElapsed = currentTime - startTime
-    totalSecondsElapsed = Math.floor(currentTimeElapsed / 1000)
-    minutesElapsed = Math.floor(totalSecondsElapsed / 60)
-    secondsElapsed = Math.floor(totalSecondsElapsed - (minutesElapsed * 60))
-    if (secondsElapsed < 10) {
-        secondsElapsed = `0${secondsElapsed}`
-    } 
-}
 
-//pulls the top 3 cards from deck and appends them to mat, removing ".back" so the front will show.
-const draw3Cards = () => {
-    if (dealCount < 0) {return}
-    message.innerText = ""
-    for (let i=0; i<3; i++) {
-        let elementCard = document.getElementById(`${dealCount}`)
-        cardMat.appendChild(elementCard)        
-        elementCard.classList.remove("deckCard")
-        setTimeout(() => {      
-        elementCard.classList.remove("back")
-        }, (i * 200))
-        elementCard.addEventListener("click", function () {clickCard(this)})
-        if (dealCount == 0) {
-            deck.style.border = "2px solid black"
-            dealCount--
-            return
-        }
-        dealCount-- 
-    }
-    timer.innerText = "0:00"
-    startTime = Date.now()
-    if (cardMat.children.length >= 12) {
-    timerInterval = setInterval(() => {
-        getTimeElapsed()
-        timer.innerText = `${minutesElapsed}:${secondsElapsed}`
-    }, 1000)
-    }
-}
+
+
 
 //check mat for a possilbe set
     //if no set, alert player and fill to 15
@@ -272,6 +247,49 @@ const winGame = () => {
     })
 }
 
+const getTimeElapsed = () => {
+    let currentTime = Date.now()
+    let currentTimeElapsed = currentTime - startTime
+    totalSecondsElapsed = Math.floor(currentTimeElapsed / 1000)
+    minutesElapsed = Math.floor(totalSecondsElapsed / 60)
+    secondsElapsed = Math.floor(totalSecondsElapsed - (minutesElapsed * 60))
+    if (secondsElapsed < 10) {
+        secondsElapsed = `0${secondsElapsed}`
+    } 
+}
+
+const setTimer = (firstInterval) => {
+    timer.innerText = "0:00"
+    setTimeout(()=> {
+        startTime = Date.now()
+    }, firstInterval)    
+    timerInterval = setTimeout(function addToTimer() {            
+            getTimeElapsed()
+            timer.innerText = `${minutesElapsed}:${secondsElapsed}`
+            timerInterval = setTimeout(addToTimer, 1000)
+    }, firstInterval)
+}
+
+//pulls the top 3 cards from deck and appends them to mat, one by one flipping by adding ".showFront"
+const drawCard = () => {
+    if (dealCount < 0) {return}
+    message.innerText = ""
+    let elementCard = document.getElementById(`${dealCount}`)
+    cardMat.appendChild(elementCard)        
+    elementCard.classList.remove("deckCard")
+    drawCount++
+    setTimeout(() => {
+        elementCard.classList.add("showFront")
+    }, (drawCount*100))
+    elementCard.firstChild.firstChild.addEventListener("click", function() {clickCard(elementCard)})    
+    if (dealCount == 0) {
+        deck.style.border = "2px solid black"
+        dealCount--
+        return
+    }
+    dealCount--
+}
+
 //when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates accordingly
 const clickCard = (card) => {
     card.classList.toggle("clicked")
@@ -307,9 +325,11 @@ const clickCard = (card) => {
                 } else {
                     setTimeout(() => {
                         while (cardMat.children.length < 12 && dealCount >= 0) {        
-                            draw3Cards()
+                            drawCard()
                         }
-                    }, 1500)  
+                    }, 1500)
+                    setTimer(1800)
+                    drawCount = 0  
                 }
             }
         }
@@ -324,38 +344,22 @@ deck.addEventListener("click", function() {
         if (hasASet == true) {
             message.innerText = "There's a set here.  Keep looking!"
         } else {
+            clearInterval(timerInterval)
             message.innerText = "You were right; there was no set.\nHave three more cards!"
-            while (cardMat.children.length < 15) {draw3Cards()}
+            while (cardMat.children.length < 15) {drawCard()}
+            setTimer(300)
         }
     }
-    while (cardMat.children.length < 12) {        
-        draw3Cards()
+    if (cardMat.children.length < 12) {
+        while (cardMat.children.length < 12) {        
+            drawCard()
+        }
+        setTimer(1200)
     }
-    // timer.innerText = "0:00"
-    // startTime = Date.now()
-    // window.runningTimer = setInterval(runTimer, 1000)
+    drawCount = 0
 })
 
 
-
-
-//timer
-//let startTime = Date.now()
-//let currentTime = Date.now()
-//let endTime = Date.now()
-//let currentTimeElapsed = currentTime - startTime
-//let fullTimeElapsed = endTime - startTime
-
-//set startTime at deal, set timer to 0
-//setInterval to update timer every 1000 miliseconds, to currentTimeElapsed
-//set endTime at isASet == true, clearInterval, report fullTimeElapsed
-//push fullTimeElapsed to times array, at win report average time by using .reduce
-//new game clears times array
-
-
-//totalSecondsElapsed = time/1000
-//minutes = Math.floor(totalSecondsElapsed/60)
-//seconds = totalSecondsElapsed - minutes
 
 
 
