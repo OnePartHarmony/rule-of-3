@@ -35,6 +35,7 @@ let totalSecondsElapsed = ""
 let minutesElapsed = ""
 let secondsElapsed = ""
 let timerInterval = ""
+let gameCount = 0
 
 //arrays of possibilities for each property
 const shapes = ["triangle", "circle", "square"]
@@ -95,7 +96,7 @@ const startGame = (arrayOfCards) => {
     shuffleCards(arrayOfCards)
     makeCards(arrayOfCards)
     message.innerText = "Click on the deck to deal."
-    changeDisplay(titleScreen)
+    titleScreen.style.display = "none"
 }
 
 startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)})
@@ -109,12 +110,14 @@ const resetGame = () => {
     while (deck.firstChild) {
         deck.removeChild(deck.firstChild)
     }
-    changeDisplay(titleScreen)
-    deck.style.border = "" 
+    titleScreen.style.display = "grid"
+    deck.style.border = ""
+    timer.innerText = "0:00" 
     possibleCardsCurrentGame = []
     gameTimes = []
 }
 newGame.addEventListener("click", function() {resetGame()})
+
 
 
 const getTimeElapsed = () => {
@@ -125,7 +128,7 @@ const getTimeElapsed = () => {
     secondsElapsed = Math.floor(totalSecondsElapsed - (minutesElapsed * 60))
     if (secondsElapsed < 10) {
         secondsElapsed = `0${secondsElapsed}`
-    }
+    } 
 }
 
 //pulls the top 3 cards from deck and appends them to mat, removing ".back" so the front will show.
@@ -232,7 +235,7 @@ const makeRandomCircle = () => {
     let randomGreen = Math.floor(Math.random() * 255)
     ctx.fillStyle = `rgb(${randomRed}, ${randomGreen}, 175)`
     x = Math.floor(Math.random() * 1400)
-    y = Math.floor(Math.random() * 900)
+    y = Math.floor(Math.random() * 1000)
     radius = Math.floor(Math.random() * 100)
     ctx.beginPath()
     ctx.arc(x, y, radius, 0, Math.PI * 2)
@@ -240,10 +243,24 @@ const makeRandomCircle = () => {
     ctx.fill()
 }
 
+const logStats = () => {
+    let gameSum = gameTimes.reduce((a, b) => a + b)
+    let gameAverageSeconds = Math.floor( gameSum / gameTimes.length)
+    gameAverageMinutes = Math.floor(gameAverageSeconds / 60)
+    readableSeconds = Math.floor(gameAverageSeconds - (gameAverageMinutes * 60))
+    if (readableSeconds < 10) {
+        readableSeconds = `0${readableSeconds}`
+    } 
+    stats.innerText += `Game ${gameCount} average time: ${gameAverageMinutes}:${readableSeconds}`
+}
+
+
 const winGame = () => {
     canvas.style.display = "flex"
     let confetti = setInterval(makeRandomCircle, 10)
     setTimeout(() => {win.style.display = "block"}, 2000)
+    gameCount++
+    logStats()
     canvas.addEventListener("click", () => {
         clearInterval(confetti)
         ctx.clearRect(0,0,1100,750)
@@ -252,12 +269,6 @@ const winGame = () => {
         resetGame()
     })
 }
-
-
-
-
-
-
 
 //when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates accordingly
 const clickCard = (card) => {
@@ -282,9 +293,8 @@ const clickCard = (card) => {
                 unclickCards()
             } else if (isASet == true) {
                 clearInterval(timerInterval)
-                console.log(`${totalSecondsElapsed}`)
-
-                message.innerText = "It's a set!\nKeep up the good work."
+                gameTimes.push(totalSecondsElapsed)
+                message.innerText = `It's a set!\nKeep up the good work.\nYour time: ${minutesElapsed}:${secondsElapsed}`
                 setTimeout(() => {
                     while (clickedCards.length > 0) {
                         clickedCards[0].remove()
