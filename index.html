@@ -3,34 +3,42 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Set of Things</title>
+        <title>Rule of 3</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/style.css">
         <script src="js/index.js" defer></script>
+        <link rel="icon" href="./icon.png">
     </head>
     <body>
-        <!-- header with title and instructions -->
         <header>
-            <h1>Set Of Things</h1>
-            
+            <h1>Rule of<br>3</h1>
+            <div id="header-buttons">
+                <button id="start-ez-game">Start Easy Game</button>
+                <button id="start-regular-game">Start Regular Game</button>
+                <button id="rules-show1">Show Rules</button>
+            </div>    
+            <div id="stats"></div>
         </header>
+
+        <div id="rules">
+           <div id="rule-words">
+                <p>Here is where I will describe how to play the game:  Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat iste in obcaecati libero, officiis, commodi maiores veniam corrupti vero rerum recusandae soluta enim pariatur, quisquam reiciendis eaque ipsa nulla facilis? Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum saepe laboriosam provident tenetur nihil atque! Sit eius excepturi, ex voluptatum molestiae repellendus facilis. Ab, quia explicabo consequatur qui sequi iusto!
+                Architecto fuga dolorem iure suscipit maxime ipsum doloribus similique veniam cumque aut molestias ducimus, alias a rerum. Unde soluta recusandae ipsam modi incidunt similique suscipit sint eos, vel tenetur quibusdam!
+                Commodi, laboriosam ducimus laborum impedit sint dolore libero doloribus iusto labore excepturi distinctio eum odit cupiditate facere earum fuga veniam veritatis eligendi amet! Explicabo porro libero culpa animi maiores! Reprehenderit!
+                Laborum, sit tempora vitae nisi quos fugiat quae deserunt facere at, minima laudantium eaque suscipit. Repudiandae excepturi ipsa quaerat id ipsam molestias modi. Dignissimos accusamus voluptatum alias? Quis, necessitatibus aliquid?
+                Perferendis quos incidunt, doloribus a fugiat adipisci non consectetur ratione corporis atque deleniti commodi error alias exercitationem facilis quo est mollitia similique doloremque velit optio, rerum aperiam fuga sunt! Ut?</p>
+           </div>
+            <button id="rules-close">Hide Rules</button>
+        </div>        
         <div id="game-board">
-            <div id="deck"></div>
-            <!-- div where cards are layed out -->
-            <div id="mat">
-                <p>Here is where I will describe how to play the game</p>
-                 <!-- button to populate cards -->
-                <button id="start-game">Start Game</button>
-                <!-- button for extra cards if no sets -->
-                <button id="check-possible-set">Check Set</button>
-            <!-- 15 card divs in 5 columns -->
-                <div id="firstTwelve"></div>
-                <div id="extraThree"></div>
-            <!-- testing a card -->
-                <div class="card blue stripe circle">
-                    <div></div>
-                </div>
-            </div>
+            <div id="message"></div>
+                <ul id="deck"></ul>
+            <button id="rules-show2">Show Rules</button>
+            <button id="new-game">New Game</button>
+            <ul id="card-mat"></ul>
+            <div id="timer">0:00</div>
         </div>
+        <canvas height=1000 width=1400></canvas>
+        <p id="win">YOU WIN!!</p>
     </body>
 </html>
