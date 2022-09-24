@@ -130,20 +130,35 @@ header button, #rules-close {
     width: 750px;
     height: 120px;
     color: #2B4570;
-    font-size: 2em;
+    font-size: 1.6em;
     grid-column: 2;
     grid-row: 1;
 }
 
-#rules-show2, #new-game {
+#set-count {
+    grid-column: 1;
+    grid-row: 3;
+    color: white;
+    font-size: 2em;
+}
+
+#rules-show2, #new-game, #help {
     position: relative;
     font-size: 1.1em;
     height: 2em;
     font-size: 1.5em;
     width: 150px;
-    grid-column: 3;
+    margin: auto;    
+}
+
+#help {
+    grid-column: 1;
     grid-row: 3;
-    margin: auto;
+}
+
+#rules-show2, #new-game{
+    grid-column: 3;
+    grid-row: 3;    
 }
 
 #new-game {
@@ -168,6 +183,7 @@ header button, #rules-close {
     border-radius: 10%;
     grid-column: 1;
     grid-row: 2;
+    left: 20px;
 }
 
 #card-mat {
