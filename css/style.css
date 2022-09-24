@@ -8,6 +8,7 @@ body {
     text-align: center;
     background-color: #2B4570;
     border: 10px double #088CD9;
+    font-family: "Fredoka", sans-serif;
 }
 
 body, #rules, #header-buttons, #message, #card-mat, .cardFront {
@@ -22,6 +23,7 @@ button {
     background: linear-gradient(#DFCCEF, #7836AF);    
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
     height: 2em;
+    font-family: "Fredoka", sans-serif;
 }
 
 button:hover {
@@ -48,14 +50,32 @@ header {
     color: #84AF21;
 }
 
-h1 {
+#title {
+    text-align: center;
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 2;    
+    background: #516990;
+    width: 220px;
+    height: 420px;
+    border-radius: 50%;
+    rotate: -45deg;
+}
+
+h1{
+    position: absolute;
+    width: 300px;
+    left: -80px;
+    top: 30px;
     font-size: 150px;
+    font-weight: 600;
+    rotate: 45deg;
+    text-shadow: 10px 10px 10px rgba(0,0,0,.5);
 }
 
 h1::first-line {
     font-size: 90px;
+    line-height: 50px;
+
 }
 
 #header-buttons {
@@ -85,7 +105,7 @@ header button, #rules-close {
     width: 800px;
     height: 700px;
     z-index: 2;
-    color: #088CD9;
+    color: #76c1ec;
 }
 
 #rule-words {
