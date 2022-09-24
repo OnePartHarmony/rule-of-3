@@ -2,8 +2,13 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
 body {
-    height: 98vh;
     justify-content: center;
     text-align: center;
     background-color: #2B4570;
@@ -99,6 +104,7 @@ header button, #rules-close {
     grid-column: 2;
     grid-row: 4;
     height: max-content;
+    width: max-content;
 }
 
 #rules {
@@ -136,9 +142,10 @@ header button, #rules-close {
     grid-row: 1;
 }
 
-#set-count {
+#set-display {
     grid-column: 1;
-    grid-row: 3;
+    grid-row: 2;
+    align-self: end;
     color: white;
     font-size: 2em;
 }
@@ -343,12 +350,19 @@ canvas {
     100% { transform: scale(1,1) translateY(0);}
 }
 
-#win {
+#win, #lose {
     display: none;
     position: absolute;
-    z-index: 4;
-    color: white;
-    animation: 2s infinite bounce;
+    z-index: 4;      
     font-size: 200px;
+}
+
+#win {
+  animation: 2s infinite bounce;
+  color: white;  
+}
+
+#lose {
+    color: rgb(222, 202, 178)
 }
 
