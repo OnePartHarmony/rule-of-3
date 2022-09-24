@@ -24,6 +24,7 @@ button {
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
     height: 2em;
     font-family: "Fredoka", sans-serif;
+    cursor: pointer;
 }
 
 button:hover {
@@ -184,6 +185,7 @@ header button, #rules-close {
     grid-column: 1;
     grid-row: 2;
     left: 20px;
+    cursor: pointer;
 }
 
 #card-mat {
@@ -235,6 +237,7 @@ header button, #rules-close {
     border-radius: 10%;
     transform: rotateX(180deg);
     box-shadow: 5px 8px 8px rgba(0,0,0,.6);
+    cursor: pointer;
 }
 
 .cardBack {    
@@ -330,7 +333,7 @@ canvas {
     display: none;
     position: absolute;
     z-index: 3;
-    /* border: 4px solid yellow; */
+    cursor: pointer;
 }
 
 @keyframes bounce {
