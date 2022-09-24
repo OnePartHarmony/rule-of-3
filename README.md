@@ -14,6 +14,8 @@ CSS
 JavaScript
 
 
+
+
 ## User Stories
 
 ### - As a user I want the ability to know if I'm searching for a set that isn't there.
@@ -67,6 +69,10 @@ I'm currently planning for at least a one-player mode.  When that is working, th
 
 
 ## Entity relationships
+
+My entity relationship goal for this project- to build all cards and images from HTML elements and CSS styling, using JavaScript.
+
+
 ```
 const numbers = [1,2,3]
 const shapes = ["triangle", "circle", "square"]
