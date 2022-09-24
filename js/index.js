@@ -113,6 +113,7 @@ const startGame = (arrayOfCards) => {
     message.innerText = "Click on the deck to deal."
     titleScreen.style.display = "none"
     deck.addEventListener("click", clickDeck)
+    setDisplay.innerText = `Sets Found:\n0`
 }
 
 startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)})
@@ -132,8 +133,7 @@ const resetGame = () => {
     timer.innerText = "0:00"
     possibleCardsCurrentGame = []
     gameTimes = []
-    setCount = 0
-    setDisplay.innerText = `Sets Found:\n${setCount}`
+    setCount = 0    
     helpCount = 0
 }
 newGame.addEventListener("click", function() {resetGame()})
@@ -454,6 +454,7 @@ const noSetOnMat = () => {
 
 const getHelp = () => {
     helpMe.removeEventListener("click", getHelp)
+    clearInterval(timerInterval)
     removeCardEvent()    
     unclickCards()
     deck.removeEventListener("click", clickDeck)    
