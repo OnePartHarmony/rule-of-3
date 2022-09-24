@@ -17,6 +17,7 @@ const stats = document.getElementById("stats")
 const helpMe = document.getElementById("help")
 
 
+
 //This function changes an element's display between flex and none
 const changeDisplay = (element) => {
     const isDisplayNone = element.style.display === "none"
@@ -57,7 +58,6 @@ const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
 
 //this function shuffles unique arrays by iterating through the greater array and trading the array at each index
 //with an array at a random index.
-//this is the first of a couple times I use a for statement instead of forEach so I can iterate in reverse
 const shuffleCards = (arrayOfCards) => {
     for (let i = (arrayOfCards.length - 1); i>0; i--) {
         let randomIndex = Math.floor(Math.random() * (i+1))
@@ -285,7 +285,7 @@ const drawCard = () => {
 //Event listeners on cards have to be handled in a special way in order to remove the event listener to prevent a fourth card being clicked and removed with a set
 const addCardEvent = () => {
     const children = cardMat.children
-    for (i=0; i<children.length; i++){
+    for (let i=0; i<children.length; i++){
         let clickFunction = clickCard.bind(this, children[i])
         cardEventHandlers.push(clickFunction)
         children[i].firstChild.firstChild.addEventListener("click", clickFunction)
@@ -294,16 +294,13 @@ const addCardEvent = () => {
 
 const removeCardEvent = () => {
     const children = cardMat.children
-    for (i=0; i<children.length; i++){        
+    for (let i=0; i<children.length; i++){        
         if (!children[i].classList.contains("clicked")){
           children[i].firstChild.firstChild.removeEventListener("click", cardEventHandlers[i])  
         }
     }
     cardEventHandlers = []
 }
-
-
-
 
 //when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates card mat, timer, and message accordingly
 const clickCard = (card) => {
@@ -343,6 +340,7 @@ const clickCard = (card) => {
                         let oneLastSet = checkMatForSet()
                         if (oneLastSet == true){
                             message.innerText = "No more cards in deck.\nFind the last sets to win!"
+                            addCardEvent() 
                         } else { 
                             winGame() 
                         }  
