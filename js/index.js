@@ -12,9 +12,11 @@ const message = document.getElementById("message")
 const newGame = document.getElementById("new-game")
 const canvas = document.querySelector("canvas")
 const winText = document.getElementById("win")
+const loseText = document.getElementById("lose")
 const timer = document.getElementById("timer")
 const stats = document.getElementById("stats")
 const helpMe = document.getElementById("help")
+const setDisplay = document.getElementById("set-display")
 
 
 
@@ -40,6 +42,7 @@ let timerInterval = ""
 let gameCount = 0
 let drawCount = 0
 let setCount = 0
+let helpCount = 0
 let cardEventHandlers = []
 let foundSet = []
 
@@ -66,7 +69,6 @@ const shuffleCards = (arrayOfCards) => {
         arrayOfCards[i] = arrayOfCards[randomIndex]
         arrayOfCards[randomIndex] = currentArray
     }
-
 }
 
 // this function creates cards based on the regular array of 81 or the easy array of 27
@@ -110,6 +112,7 @@ const startGame = (arrayOfCards) => {
     makeCards(arrayOfCards)
     message.innerText = "Click on the deck to deal."
     titleScreen.style.display = "none"
+    deck.addEventListener("click", clickDeck)
 }
 
 startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)})
@@ -130,6 +133,8 @@ const resetGame = () => {
     possibleCardsCurrentGame = []
     gameTimes = []
     setCount = 0
+    setDisplay.innerText = `Sets Found:\n${setCount}`
+    helpCount = 0
 }
 newGame.addEventListener("click", function() {resetGame()})
 
@@ -175,8 +180,6 @@ const checkMatForSet = () => {
 
 
 //This function checks if three cards are a set
-//if not a set, alert player
-//if it is a set, remove cards and alert player
 const checkSet = (threeCardArray) => {
     let trueCount = 0
     let card1 = threeCardArray[0]
@@ -203,12 +206,14 @@ const unclickCards = () => {
 
 //Circles of random colors appear after a win
 const ctx = canvas.getContext("2d")
+
 const makeRandomCircle = () => {
+
     let randomRed = Math.floor(Math.random() * 255)
     let randomGreen = Math.floor(Math.random() * 255)
     ctx.fillStyle = `rgb(${randomRed}, ${randomGreen}, 175)`
-    x = Math.floor(Math.random() * 1400)
-    y = Math.floor(Math.random() * 1000)
+    x = Math.floor(Math.random() * canvas.width)
+    y = Math.floor(Math.random() * canvas.height)
     radius = Math.floor(Math.random() * 100)
     ctx.beginPath()
     ctx.arc(x, y, radius, 0, Math.PI * 2)
@@ -216,29 +221,76 @@ const makeRandomCircle = () => {
     ctx.fill()
 }
 
-const logStats = () => {
-    let gameSum = gameTimes.reduce((a, b) => a + b)
-    let gameAverageSeconds = Math.floor( gameSum / gameTimes.length)
-    gameAverageMinutes = Math.floor(gameAverageSeconds / 60)
-    readableSeconds = Math.floor(gameAverageSeconds - (gameAverageMinutes * 60))
-    if (readableSeconds < 10) {
-        readableSeconds = `0${readableSeconds}`
-    } 
-    stats.innerText += `Game ${gameCount} average time: ${gameAverageMinutes}:${readableSeconds}`
+const makeBrick = (x,y) => {
+    let randomBlue = Math.floor(Math.random() * 100)
+    let randomGreen = Math.floor(Math.random() * 175)
+    ctx.fillStyle = `rgb(200, ${randomGreen}, ${randomBlue})`
+    ctx.fillRect(x, canvas.height - y, ((canvas.height/5.35)-(canvas.height/91)), ((canvas.height/16)-(canvas.height/96)))
 }
 
+const fillWithBricks = () => {
+    ctx.canvas.width = window.innerWidth
+    ctx.canvas.height = window.innerHeight
+    let brickCount = 1 
+    for (let y= ((canvas.height/16)-(canvas.height/80)); y <= canvas.height; y+=canvas.height/8) {
+        for (let x=0; x < canvas.width; x+=(canvas.height/5.35)) {
+            setTimeout(()=>{                
+                makeBrick(x,y)
+            }, brickCount*50)
+            brickCount++
+        }        
+        for (let x=-85; x<canvas.width; x+=(canvas.height/5.35)) {
+            setTimeout (()=> {
+                makeBrick(x,(y+(canvas.height/16)))
+            }, brickCount*50)
+            brickCount++
+        }    
+    }
+}
+
+const logStats = (wonOrLost) => {
+    if (gameTimes.length < 2){
+        stats.innerText = `You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try? `
+    } else {
+        let gameSum = gameTimes.reduce((a, b) => a + b)
+        let gameAverageSeconds = Math.floor( gameSum / gameTimes.length)
+        gameAverageMinutes = Math.floor(gameAverageSeconds / 60)
+        readableSeconds = Math.floor(gameAverageSeconds - (gameAverageMinutes * 60))
+        if (readableSeconds < 10) {
+            readableSeconds = `0${readableSeconds}`
+        } 
+        stats.innerText += `Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
+    }
+}
 
 const winGame = () => {
     canvas.style.display = "flex"
+    ctx.canvas.width = window.innerWidth
+    ctx.canvas.height = window.innerHeight
     let confetti = setInterval(makeRandomCircle, 10)
     setTimeout(() => {winText.style.display = "block"}, 2000)
     gameCount++
-    logStats()
+    logStats("won")
     canvas.addEventListener("click", () => {
         clearInterval(confetti)
-        ctx.clearRect(0,0,1100,750)
+        ctx.clearRect(0,0,canvas.width,canvas.height)
         canvas.style.display = "none"
         winText.style.display = "none"
+        resetGame()
+    })
+}
+
+const loseGame = () => {
+    clearInterval(timerInterval)
+    canvas.style.display = "flex"
+    fillWithBricks()
+    setTimeout(() => {loseText.style.display = "block"}, 4000)
+    gameCount++
+    logStats("lost")
+    canvas.addEventListener("click", () => {
+        ctx.clearRect(0,0,canvas.width,canvas.height)
+        canvas.style.display = "none"
+        loseText.style.display = "none"
         resetGame()
     })
 }
@@ -259,7 +311,7 @@ const setTimer = (firstInterval) => {
     setTimeout(()=> {
         startTime = Date.now()
     }, firstInterval)    
-    timerInterval = setTimeout(function addToTimer() {            
+    timerInterval = setTimeout(function addToTimer() {
             getTimeElapsed()
             timer.innerText = `${minutesElapsed}:${secondsElapsed}`
             timerInterval = setTimeout(addToTimer, 1000)
@@ -298,7 +350,7 @@ const addCardEvent = () => {
 
 const removeCardEvent = () => {
     const children = cardMat.children
-    for (let i=0; i<children.length; i++){        
+    for (let i=0; i<children.length; i++){
         if (!children[i].classList.contains("clicked")){
           children[i].firstChild.firstChild.removeEventListener("click", cardEventHandlers[i])  
         }
@@ -311,28 +363,31 @@ const removeAndReplace = () => {
     setTimeout(() => {
         while (clickedCards.length > 0) {
             clickedCards[0].remove()
-        }
+        }        
     }, 1000)
     if (dealCount < 0) {
         setTimeout (() => {
-            let oneLastSet = checkMatForSet()
-            if (oneLastSet == true){
+            let oneLastSet = checkMatForSet()        
+            if (oneLastSet == true){              
                 message.innerText = "No more cards in deck.\nFind the last sets to win!"
-                addCardEvent() 
-            } else { 
+                addCardEvent()
+                helpMe.addEventListener("click", getHelp)                
+            } else if (setCount >= helpCount) { 
                 winGame() 
-            }  
-        },1200)
-    } else {
+            } else if (helpCount > setCount) {
+                loseGame()
+            }
+        },1200)    
+     } else {
         setTimeout(() => {
             while (cardMat.children.length < 12 && dealCount >= 0) {        
                 drawCard()
             }
         }, 1700)
-        setTimeout(() => { 
+        setTimeout(() => {
             deck.addEventListener("click", clickDeck)
+            addCardEvent()
             helpMe.addEventListener("click", getHelp)
-            addCardEvent() 
         },1750)                    
         setTimer(2000)
         drawCount = 0  
@@ -343,10 +398,10 @@ const removeAndReplace = () => {
 //when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates card mat, timer, and message accordingly
 const clickCard = (card) => {
     card.classList.toggle("clicked")
-    if (card.classList.contains("clicked")) {        
+    if (card.classList.contains("clicked")) {
         //check if three cards are clicked, if not, just clear the message board
         let clickedCards =  document.getElementsByClassName("clicked")          
-        if (clickedCards.length < 3){            
+        if (clickedCards.length < 3){
             message.innerText = ""
             return
             //if three cards clicked, compare properties
@@ -360,12 +415,14 @@ const clickCard = (card) => {
                 cardsToCheck.push(uniqueArray)
             }
             let isASet = checkSet(cardsToCheck)
-            if (isASet != true){                
+            if (isASet != true){
                 message.innerText = "That's not a set.\nYour timer is still running.\nTry Again."
                 unclickCards()
                 deck.addEventListener("click", clickDeck)
                 helpMe.addEventListener("click", getHelp)
             } else if (isASet == true) {
+                setCount++
+                setDisplay.innerText = `Sets Found:\n${setCount}`
                 removeCardEvent()
                 clearInterval(timerInterval)
                 gameTimes.push(totalSecondsElapsed)
@@ -390,40 +447,21 @@ const noSetOnMat = () => {
         while (cardMat.children.length < 15) {drawCard()}
         setTimer(300)
         setCount++
-    }  
-}
-
-//when the deck is clicked
-const clickDeck = () => {
-    removeCardEvent()    
-    unclickCards()
-    if (cardMat.children.length >= 12) {
-        let hasASet = checkMatForSet()
-        if (hasASet == true) {
-            message.innerText = "There's a set here.  Keep looking!"
-        } else { noSetOnMat() }
+        setDisplay.innerText = `Sets Found:\n${setCount}`
     }
-    if (cardMat.children.length < 12) {
-        while (cardMat.children.length < 12) {        
-            drawCard()
-        }
-        setTimer(1200)
-    }
-    drawCount = 0
-    addCardEvent()
+    setTimeout(() => { helpMe.addEventListener("click", getHelp)}, 300)
 }
-deck.addEventListener("click", clickDeck)
-
 
 const getHelp = () => {
+    helpMe.removeEventListener("click", getHelp)
     removeCardEvent()    
     unclickCards()
-    deck.removeEventListener("click", clickDeck)
-    helpMe.removeEventListener("click", getHelp)
+    deck.removeEventListener("click", clickDeck)    
     let hasASet = checkMatForSet()
-    if (hasASet == false) { 
+    if (hasASet == false) {
         noSetOnMat() 
     } else if (hasASet == true) {
+        helpCount++
         foundSet.forEach(array => {
             for (let i=0; i<cardMat.children.length; i++){
                 let frontOfCard = cardMat.children[i].firstChild.firstChild
@@ -436,4 +474,29 @@ const getHelp = () => {
         removeAndReplace()
     }
 }
-helpMe.addEventListener("click", getHelp)
+
+const clickDeck = () => {
+    helpMe.removeEventListener("click", getHelp)
+    removeCardEvent()    
+    unclickCards()
+    if (cardMat.children.length >= 12) {
+        let hasASet = checkMatForSet()
+        if (hasASet == true) {
+            message.innerText = "There's a set here.  Keep looking!"
+        } else { noSetOnMat() }
+    }
+    if (cardMat.children.length < 12) {
+        while (cardMat.children.length < 12) {
+            drawCard()
+        }
+        setTimer(1200)
+        setTimeout(() => { helpMe.addEventListener("click", getHelp) }, 1200)
+    }
+    drawCount = 0
+    addCardEvent()
+}
+deck.addEventListener("click", clickDeck)
+
+
+
+
