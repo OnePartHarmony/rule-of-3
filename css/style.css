@@ -59,13 +59,13 @@ h1{
     grid-column: 2;
     grid-row: 2;  
     position: relative;
-    font-size: 150px;
+    font-size: 175px;
     font-weight: 600;
     text-shadow: 10px 10px 10px rgba(0,0,0,.4);
 }
 
 h1::first-line {
-    font-size: 90px;
+    font-size: 100px;
     line-height: 50px;
 }
 
@@ -105,7 +105,7 @@ header button, #rules-close {
     grid-column: 2;
     grid-row: 4;
     height: max-content;
-    width: max-content;
+    width: 650px;
 }
 
 #rules {
@@ -290,7 +290,7 @@ header button, #rules-close {
     border-radius: 50%;
 }
 
-.triangle div {
+.gumdrop div {
     border-radius: 50% / 100% 100% 0 0;
 }
 
@@ -304,7 +304,7 @@ header button, #rules-close {
     background-color: #84AF21;
 }
 
-.red div {
+.pink div {
     border-color: #DB4CAF;
     background-color: #DB4CAF;
 }
@@ -317,7 +317,7 @@ header button, #rules-close {
     background: linear-gradient(20deg, #088CD9 10%, white 10% 20%, #088CD9 20% 30%, white 30% 40%, #088CD9 40% 50%, white 50% 60%, #088CD9 60% 70%, white 70% 80%, #088CD9 80% 90%, white 90%)
 }
 
-.stripe.red div {
+.stripe.pink div {
     background: linear-gradient(20deg, #DB4CAF 10%, white 10% 20%, #DB4CAF 20% 30%, white 30% 40%, #DB4CAF 40% 50%, white 50% 60%, #DB4CAF 60% 70%, white 70% 80%, #DB4CAF 80% 90%, white 90%)
 }
 
@@ -381,3 +381,25 @@ canvas {
     color: rgb(231, 231, 17);
 }
 
+.example-set {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 425px;
+}
+
+.example {
+    position: relative;
+    margin: 5px;
+    height: 190px;
+    width: 135px;
+    border-radius: 10%;
+    cursor: default;
+    margin: 5px;
+    height: 190px;
+    width: 135px;
+    transform: none;
+}
