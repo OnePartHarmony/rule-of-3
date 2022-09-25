@@ -110,23 +110,26 @@ header button, #rules-close {
 
 #rules {
     display: none;
-    width: 800px;
+    width: 900px;
     height: 700px;
     z-index: 2;
     color: #76c1ec;
 }
 
 #rule-words {
+    padding: 20px;
     overflow-y: scroll;
     scrollbar-color: #088CD9 #516990;
 }
 
-#rule-words::-webkit-scrollbar-track {
+#rule-words::-webkit-scrollbar {
     background-color: #516990;
+    width: 10px;
 }
 
 #rule-words::-webkit-scrollbar-thumb {
     background-color: #088CD9;
+    border-radius: 10px;
 }
 
 #game-board {
