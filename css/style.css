@@ -52,36 +52,49 @@ header {
     gap: 0px;
     height: 800px;
     width: 1200px;
-    z-index: 1;
-    color: #84AF21;
-}
-
-#title {
-    text-align: center;
-    grid-column: 2;
-    grid-row: 2;    
-    background: #516990;
-    width: 220px;
-    height: 420px;
-    border-radius: 50%;
-    rotate: -45deg;
+    z-index: 1;    
 }
 
 h1{
-    position: absolute;
-    width: 300px;
-    left: -80px;
-    top: 30px;
+    margin: auto;
+    grid-column: 2;
+    grid-row: 2;  
+    position: relative;
+    width: 300px;    
     font-size: 150px;
     font-weight: 600;
-    rotate: 45deg;
+    /* rotate: 45deg; */
     text-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    margin-bottom: 90px;
 }
 
 h1::first-line {
     font-size: 90px;
     line-height: 50px;
 
+}
+
+#farthest-back-title {
+    top: 15px;
+    left: -18px;
+    color: #516990;
+}
+
+#third-title {
+    top: 10px;
+    left: -12px;
+    color: #088CD9;
+    
+}
+
+#second-title {
+    top: 5px;
+    left: -6px;
+    color: #84AF21;
+}
+
+#first-title {
+    color: #DB4CAF;
 }
 
 #header-buttons {
@@ -333,7 +346,7 @@ header button, #rules-close {
 }
 
 .clicked .cardFront {
-    background-color: #e7d9f4;
+    background-color: #e2cef5;
 }
 
 canvas {
