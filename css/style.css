@@ -121,12 +121,14 @@ header button, #rules-close {
     scrollbar-color: #088CD9 #516990;
 }
 
-#rule-words::-webkit-scrollbar-track {
+#rule-words::-webkit-scrollbar {
     background-color: #516990;
+    width: 10px;
 }
 
 #rule-words::-webkit-scrollbar-thumb {
     background-color: #088CD9;
+    border-radius: 10px;
 }
 
 #game-board {

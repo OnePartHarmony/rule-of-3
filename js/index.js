@@ -18,18 +18,6 @@ const stats = document.getElementById("stats")
 const helpMe = document.getElementById("help")
 const setDisplay = document.getElementById("set-display")
 
-
-
-//This function changes an element's display between flex and none
-const changeDisplay = (element) => {
-    const isDisplayNone = element.style.display === "none"
-    element.style.display = isDisplayNone ? "flex" : "none"
-}
-//The show and hide rules buttons change the display of the rules page
-hideRules.addEventListener("click", function() { changeDisplay(rules)})
-showRules1.addEventListener("click", function() { changeDisplay(rules)})
-showRules2.addEventListener("click", function() { changeDisplay(rules)})
-
 //Global variable declarations
 let dealCount = -1
 let startTime = ""
@@ -46,22 +34,29 @@ let helpCount = 0
 let cardEventHandlers = []
 let foundSet = []
 
+const changeDisplay = (element) => {
+    const isDisplayNone = element.style.display === "none"
+    element.style.display = isDisplayNone ? "flex" : "none"
+}
+hideRules.addEventListener("click", function() { changeDisplay(rules)})
+showRules1.addEventListener("click", function() { changeDisplay(rules)})
+showRules2.addEventListener("click", function() { changeDisplay(rules)})
+
 //arrays of possibilities for each property
 const shapes = ["triangle", "circle", "square"]
 const colors = ["red", "green", "blue"]
 const numbers = [1,2,3]
 const fill = ["solid", "hollow", "stripe"]
 
-
 //this function creates an array of arrays, each with a unique combination of one each of the properties (this is the cartesian product)
 const uniqueSort = (...a) => a.reduce((a, b) => a.flatMap(d => b.map(e => [d, e].flat())))
 //An easy game uses only three of the properties, while a regular game uses all 4.
+//It would be simple in the future to create an even harder mode with a fifth property, though that would be 243 cards.
 const possibleCardsEasy = uniqueSort(shapes, colors, numbers)
 const possibleCardsRegular = uniqueSort(shapes, colors, numbers, fill)
 
-
-//this function shuffles unique arrays by iterating through the greater array and trading the array at each index
-//with an array at a random index.
+//this function shuffles unique arrays by iterating through the greater array
+//and trading the array at each index with an array at a random index.
 const shuffleCards = (arrayOfCards) => {
     for (let i = (arrayOfCards.length - 1); i>0; i--) {
         let randomIndex = Math.floor(Math.random() * (i+1))
@@ -75,9 +70,9 @@ const shuffleCards = (arrayOfCards) => {
 const makeCards = (arrayOfCards) => {
     dealCount= -1
     arrayOfCards.forEach((uniqueCardArray, index) => {
-        //fill an identical array to work from during this game
+//fill an identical array to work from during this game
         possibleCardsCurrentGame.push(uniqueCardArray)
-        //create a li with a unique id, filled with an inner, front, and back
+//create a li with a unique id, filled with an inner, front, and back
         const card = document.createElement("li")
         const inner = document.createElement("div")
         inner.classList.add("innerCard")
@@ -88,7 +83,7 @@ const makeCards = (arrayOfCards) => {
         const back = document.createElement("div")
         back.classList.add("cardBack")
         inner.appendChild(back)
-        //create shapes on the front, quantity depending on number property
+//create shapes on the front, quantity depending on number property
         let intNumber = parseInt(uniqueCardArray[2])
         for (let i=1; i <= intNumber; i++ ) {
             let cardShape = document.createElement("div")
@@ -96,12 +91,12 @@ const makeCards = (arrayOfCards) => {
         }
         card.setAttribute("id", `${index}`)
         card.classList.add("card", "deckCard")
-        //This assigns classes based on properties
+//This assigns classes based on properties
         for (const word of uniqueCardArray) {
             front.classList.add(word)
         }
         deck.appendChild(card)
-        //this sets a number tied to the index of the top card in the deck.
+//this sets a number tied to the index of the top card in the deck, so with each deal, the coorisponding element and properties can be referenced
         dealCount++
     })
 }
@@ -119,7 +114,7 @@ const startGame = (arrayOfCards) => {
 startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)})
 startRegularGame.addEventListener("click", function() {startGame(possibleCardsRegular)})
 
-//the new game button removes all the cards and returns to the title screen
+//the new game button removes all the cards, resets variables, and returns to the title screen
 const resetGame = () => {
     while (cardMat.firstChild) {
         cardMat.removeChild(cardMat.firstChild)
@@ -138,9 +133,10 @@ const resetGame = () => {
 }
 newGame.addEventListener("click", function() {resetGame()})
 
+//This function is how the computer can tell the player if there is a set visible
 const checkMatForSet = () => {
     foundSet = []
-    //for each element on the mat, find the matching array and push it to a new array
+//for each element on the mat, find the matching array and push it to a new array
     let cardsInPlay = Array.from(cardMat.children)
     let idsInPlay = cardsInPlay.map(card => {return card.id})
     let propertiesInPlay = []
@@ -148,8 +144,8 @@ const checkMatForSet = () => {
         let intId = parseInt(stringId)
         propertiesInPlay.push(possibleCardsCurrentGame[intId])
     })
-    //find if within that array, there are three arrays that for each index they either all match or all don't
-        //for each pair of arrays I want to check for a third that for each index that completes the set
+//find if within that array, there are three arrays that for each index they either all match or all don't
+//for each pair of arrays I want to check for a third that for each index that completes the set
     let containsSet = false
     propertiesInPlay.forEach((firstCard, index) => {
         for (let secondCardIndex = index + 1; secondCardIndex < propertiesInPlay.length; secondCardIndex++) {
@@ -178,7 +174,6 @@ const checkMatForSet = () => {
     return containsSet
 }
 
-
 //This function checks if three cards are a set
 const checkSet = (threeCardArray) => {
     let trueCount = 0
@@ -204,7 +199,7 @@ const unclickCards = () => {
     }
 }
 
-//Circles of random colors appear after a win
+//Circles of random colors appear after a win, a brick wall appears after a lose
 const ctx = canvas.getContext("2d")
 
 const makeRandomCircle = () => {
@@ -248,6 +243,7 @@ const fillWithBricks = () => {
     }
 }
 
+//This function adds the stats from the end of the game to the title screen
 const logStats = (wonOrLost) => {
     if (gameTimes.length < 2){
         stats.innerText = `You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try? `
@@ -263,6 +259,7 @@ const logStats = (wonOrLost) => {
     }
 }
 
+//After a win or loss, the canvas animation and text appears, with the ability to be clicked to reset the game
 const winGame = () => {
     canvas.style.display = "flex"
     ctx.canvas.width = window.innerWidth
@@ -295,6 +292,7 @@ const loseGame = () => {
     })
 }
 
+//For keeping track of time and updating the timer
 const getTimeElapsed = () => {
     let currentTime = Date.now()
     let currentTimeElapsed = currentTime - startTime
@@ -306,6 +304,8 @@ const getTimeElapsed = () => {
     } 
 }
 
+//sets a timer that starts after a chosen amount of time and updates each second, but can be
+//cleared more cleanly than with setInterval
 const setTimer = (firstInterval) => {
     timer.innerText = "0:00"
     setTimeout(()=> {
@@ -318,7 +318,8 @@ const setTimer = (firstInterval) => {
     }, firstInterval)
 }
 
-//pulls the top 3 cards from deck and appends them to mat, one by one flipping by adding ".showFront"
+//pulls the top card from deck and appends it to mat, one by one flipping by
+//adding ".showFront" after a unique time set by drawCount
 const drawCard = () => {
     if (dealCount < 0) {return}
     message.innerText = ""
@@ -337,8 +338,8 @@ const drawCard = () => {
     dealCount--
 }
 
-
-//Event listeners on cards have to be handled in a special way in order to remove the event listener to prevent a fourth card being clicked and removed with a set
+//Event listeners on cards have to be handled in this special way in order to
+//remove each specific event listener to prevent a fourth card being clicked and removed with a set
 const addCardEvent = () => {
     const children = cardMat.children
     for (let i=0; i<children.length; i++){
@@ -358,6 +359,8 @@ const removeCardEvent = () => {
     cardEventHandlers = []
 }
 
+//After a set has been found by the player or the computer, the cards need 
+//to be removed from the mat with new cards drawn in their place
 const removeAndReplace = () => {
     let clickedCards =  document.getElementsByClassName("clicked")
     setTimeout(() => {
@@ -394,8 +397,8 @@ const removeAndReplace = () => {
     }
 }
 
-
-//when a card is clicked, this toggles the clicked class and if 3 cards are clicked, checks for a set + updates card mat, timer, and message accordingly
+//when a card is clicked, this toggles the clicked class and if 3 cards are clicked, 
+//this checks for a set + updates card mat, timer, and message accordingly
 const clickCard = (card) => {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
@@ -433,7 +436,8 @@ const clickCard = (card) => {
     }
 }
 
-
+//if the computer determines there is no set available, new cards need to be added, 
+//but the maximum number of cards on the mat at a time is 15
 const noSetOnMat = () => {
     if (cardMat.children.length == 12) {
         clearInterval(timerInterval)
@@ -452,6 +456,7 @@ const noSetOnMat = () => {
     setTimeout(() => { helpMe.addEventListener("click", getHelp)}, 300)
 }
 
+//When the player clicks "Help Me," essentially the computer takes a turn
 const getHelp = () => {
     helpMe.removeEventListener("click", getHelp)
     clearInterval(timerInterval)
@@ -476,6 +481,8 @@ const getHelp = () => {
     }
 }
 
+//At first clicking the deck draws the first twelve cards.
+//After that, clicking the deck will draw three cards only if no set is already available
 const clickDeck = () => {
     helpMe.removeEventListener("click", getHelp)
     removeCardEvent()    
@@ -497,6 +504,13 @@ const clickDeck = () => {
     addCardEvent()
 }
 deck.addEventListener("click", clickDeck)
+
+
+
+
+
+
+
 
 
 
