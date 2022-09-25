@@ -43,8 +43,8 @@ showRules1.addEventListener("click", function() { changeDisplay(rules)})
 showRules2.addEventListener("click", function() { changeDisplay(rules)})
 
 //arrays of possibilities for each property
-const shapes = ["triangle", "circle", "square"]
-const colors = ["red", "green", "blue"]
+const shapes = ["gumdrop", "circle", "square"]
+const colors = ["pink", "green", "blue"]
 const numbers = [1,2,3]
 const fill = ["solid", "hollow", "stripe"]
 
@@ -109,6 +109,7 @@ const startGame = (arrayOfCards) => {
     titleScreen.style.display = "none"
     deck.addEventListener("click", clickDeck)
     setDisplay.innerText = `Sets Found:\n0`
+    newGame.addEventListener("click", resetGame)
 }
 
 startEasyGame.addEventListener("click", function() {startGame(possibleCardsEasy)})
@@ -131,7 +132,7 @@ const resetGame = () => {
     setCount = 0    
     helpCount = 0
 }
-newGame.addEventListener("click", function() {resetGame()})
+
 
 //This function is how the computer can tell the player if there is a set visible
 const checkMatForSet = () => {
@@ -203,7 +204,6 @@ const unclickCards = () => {
 const ctx = canvas.getContext("2d")
 
 const makeRandomCircle = () => {
-
     let randomRed = Math.floor(Math.random() * 255)
     let randomGreen = Math.floor(Math.random() * 255)
     ctx.fillStyle = `rgb(${randomRed}, ${randomGreen}, 175)`
@@ -246,7 +246,7 @@ const fillWithBricks = () => {
 //This function adds the stats from the end of the game to the title screen
 const logStats = (wonOrLost) => {
     if (gameTimes.length < 2){
-        stats.innerText = `You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try? `
+        stats.innerText = `${stats.innerText}\nYou lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`
     } else {
         let gameSum = gameTimes.reduce((a, b) => a + b)
         let gameAverageSeconds = Math.floor( gameSum / gameTimes.length)
@@ -255,12 +255,14 @@ const logStats = (wonOrLost) => {
         if (readableSeconds < 10) {
             readableSeconds = `0${readableSeconds}`
         } 
-        stats.innerText += `Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
+        stats.innerText = `${stats.innerText}\nGame ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
     }
 }
 
 //After a win or loss, the canvas animation and text appears, with the ability to be clicked to reset the game
 const winGame = () => {
+    helpMe.removeEventListener("click", getHelp)
+    newGame.removeEventListener("click", resetGame)
     canvas.style.display = "flex"
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
@@ -268,28 +270,34 @@ const winGame = () => {
     setTimeout(() => {winText.style.display = "block"}, 2000)
     gameCount++
     logStats("won")
-    canvas.addEventListener("click", () => {
-        clearInterval(confetti)
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        canvas.style.display = "none"
-        winText.style.display = "none"
-        resetGame()
-    })
+    setTimeout(()=>{
+        canvas.addEventListener("click", () => {
+            clearInterval(confetti)
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            canvas.style.display = "none"
+            winText.style.display = "none"
+            resetGame()
+        })
+    }, 2500)
 }
 
 const loseGame = () => {
+    helpMe.removeEventListener("click", getHelp)
+    newGame.removeEventListener("click", resetGame)
     clearInterval(timerInterval)
     canvas.style.display = "flex"
     fillWithBricks()
     setTimeout(() => {loseText.style.display = "block"}, 4000)
     gameCount++
     logStats("lost")
-    canvas.addEventListener("click", () => {
-        ctx.clearRect(0,0,canvas.width,canvas.height)
-        canvas.style.display = "none"
-        loseText.style.display = "none"
-        resetGame()
-    })
+    setTimeout(()=>{
+        canvas.addEventListener("click", () => {
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            canvas.style.display = "none"
+            loseText.style.display = "none"
+            resetGame()
+        })
+    }, 4500)
 }
 
 //For keeping track of time and updating the timer
@@ -322,7 +330,6 @@ const setTimer = (firstInterval) => {
 //adding ".showFront" after a unique time set by drawCount
 const drawCard = () => {
     if (dealCount < 0) {return}
-    message.innerText = ""
     let elementCard = document.getElementById(`${dealCount}`)
     cardMat.appendChild(elementCard)        
     elementCard.classList.remove("deckCard")
@@ -391,6 +398,7 @@ const removeAndReplace = () => {
             deck.addEventListener("click", clickDeck)
             addCardEvent()
             helpMe.addEventListener("click", getHelp)
+            message.innerText = ""
         },1750)                    
         setTimer(2000)
         drawCount = 0  
@@ -476,8 +484,10 @@ const getHelp = () => {
                 }                
             }
         })
-        message.innerText = "Here's one possible set" 
-        removeAndReplace()
+        message.innerText = "Here's one possible set"
+        setTimeout (()=>{
+            removeAndReplace()
+        }, 350)
     }
 }
 
@@ -487,10 +497,12 @@ const clickDeck = () => {
     helpMe.removeEventListener("click", getHelp)
     removeCardEvent()    
     unclickCards()
+    message.innerText = ""
     if (cardMat.children.length >= 12) {
         let hasASet = checkMatForSet()
         if (hasASet == true) {
             message.innerText = "There's a set here.  Keep looking!"
+            helpMe.addEventListener("click", getHelp)
         } else { noSetOnMat() }
     }
     if (cardMat.children.length < 12) {
