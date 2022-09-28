@@ -451,12 +451,14 @@ const noSetOnMat = () => {
         clearInterval(timerInterval)
         message.innerText = "You were right; there was no set.\nHave three more cards!"
         while (cardMat.children.length < 15) {drawCard()}
+        addCardEvent()
         setTimer(300)
     } else if (cardMat.children.length == 15) {
         clearInterval(timerInterval)
         message.innerText = "Wow, the odds were 2500:1 that\nthere would be a set in 15 cards.\nThis set's on me."
         while (cardMat.children.length > 12) { cardMat.firstChild.remove() }
         while (cardMat.children.length < 15) {drawCard()}
+        addCardEvent()
         setTimer(300)
         setCount++
         setDisplay.innerText = `Sets Found:\n${setCount}`
