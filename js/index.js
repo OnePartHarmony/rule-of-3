@@ -14,7 +14,7 @@ const canvas = document.querySelector("canvas")
 const winText = document.getElementById("win")
 const loseText = document.getElementById("lose")
 const timer = document.getElementById("timer")
-const stats = document.getElementById("stats")
+const stats = document.getElementById("stats-list")
 const helpMe = document.getElementById("help")
 const setDisplay = document.getElementById("set-display")
 
@@ -243,10 +243,14 @@ const fillWithBricks = () => {
     }
 }
 
+
+// let statsLog = []
 //This function adds the stats from the end of the game to the title screen
 const logStats = (wonOrLost) => {
     if (gameTimes.length < 2){
-        stats.innerText = `${stats.innerText}\nYou lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`
+        // stats.innerText = `${stats.innerText}\nYou lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`
+        // statsLog.push(`You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`)
+        stats.innerHTML += `<li>You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?</li>`
     } else {
         let gameSum = gameTimes.reduce((a, b) => a + b)
         let gameAverageSeconds = Math.floor( gameSum / gameTimes.length)
@@ -255,7 +259,9 @@ const logStats = (wonOrLost) => {
         if (readableSeconds < 10) {
             readableSeconds = `0${readableSeconds}`
         } 
-        stats.innerText = `${stats.innerText}\nGame ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
+        // stats.innerText = `${stats.innerText}\nGame ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
+        // statsLog.push(`Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`)
+        stats.innerHTML += `<li>Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}</li>`
     }
 }
 
