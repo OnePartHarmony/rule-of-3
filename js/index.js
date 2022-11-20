@@ -103,6 +103,8 @@ const makeCards = (arrayOfCards) => {
 
 //this function shuffles the array of unique property combos, makes them into cards, and changes the view from title screen to game board.
 const startGame = (arrayOfCards) => {
+    winText.style.display = "none"
+    loseText.style.display = "none"
     shuffleCards(arrayOfCards)
     makeCards(arrayOfCards)
     message.innerText = "Click on the deck to deal."
@@ -123,6 +125,8 @@ const resetGame = () => {
     while (deck.firstChild) {
         deck.removeChild(deck.firstChild)
     }
+    winText.style.display = "none"
+    loseText.style.display = "none"
     titleScreen.style.display = "grid"
     deck.style.border = ""
     clearInterval(timerInterval)
@@ -244,12 +248,10 @@ const fillWithBricks = () => {
 }
 
 
-// let statsLog = []
+
 //This function adds the stats from the end of the game to the title screen
 const logStats = (wonOrLost) => {
     if (gameTimes.length < 2){
-        // stats.innerText = `${stats.innerText}\nYou lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`
-        // statsLog.push(`You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?`)
         stats.innerHTML += `<li>You lost game ${gameCount} and were helped ${helpCount} times.  Did you even try?</li>`
     } else {
         let gameSum = gameTimes.reduce((a, b) => a + b)
@@ -259,8 +261,6 @@ const logStats = (wonOrLost) => {
         if (readableSeconds < 10) {
             readableSeconds = `0${readableSeconds}`
         } 
-        // stats.innerText = `${stats.innerText}\nGame ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`
-        // statsLog.push(`Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}`)
         stats.innerHTML += `<li>Game ${gameCount} ${wonOrLost} with ${setCount} sets and an average time of ${gameAverageMinutes}:${readableSeconds}</li>`
     }
 }
@@ -281,7 +281,6 @@ const winGame = () => {
             clearInterval(confetti)
             ctx.clearRect(0,0,canvas.width,canvas.height)
             canvas.style.display = "none"
-            winText.style.display = "none"
             resetGame()
         })
     }, 2500)
@@ -300,7 +299,6 @@ const loseGame = () => {
         canvas.addEventListener("click", () => {
             ctx.clearRect(0,0,canvas.width,canvas.height)
             canvas.style.display = "none"
-            loseText.style.display = "none"
             resetGame()
         })
     }, 4500)
