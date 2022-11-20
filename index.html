@@ -20,10 +20,12 @@
                 <button id="start-regular-game">Start Regular Game</button>
                 <button id="rules-show1">Show Rules</button>
             </div>
-            <div id="stats"></div>
+            <div id="stats">
+                <ul id="stats-list"></ul>
+            </div>
         </header>
-        <div id="rules">
-           <div id="rule-words">
+        <section id="rules">
+           <section id="rule-words">
                 <p>The object of the game is to find "sets" of three cards that satisfy the rule of three.  Each of the cards contains a symbol which has four properties:<br><br>Shape: Each symbol is a circle, square, or gumdrop,<br>Color: Each symbol is pink, blue, or green,<br>Number: Each card has one, two, or three identical symbols,<br>and Shading: Each symbol is solid, outlined, or striped.<br><br>(If you haven't played before, first try an easy game of 27 cards with only the solid symbols)<br><br>Three cards count as a "set" if for each of the properties the cards are either <strong>all the same</strong> or <strong>all different.</strong> For example, if two cards have blue symbols and one does not, the rule is broken and those three cards are not a set.  But if one card has a blue striped square, one has two blue solid circles, and one has three blue outlined gumdrops, it's a set because number, shape and fill are all different, while color is all the same.<br><br>Here are three examples of sets:<br><br>&#x2022; All have the <strong>same</strong> number, <strong>same</strong> color, <strong>same</strong> fill, and <strong>different</strong> shapes:
                 <div class="example-set">
                     <div class="example cardFront pink solid gumdrop"><div></div></div>
@@ -43,10 +45,10 @@
                     <div class="example cardFront blue stripe gumdrop"><div></div><div></div><div></div></div>
                 </div>
                 <br><br>When a each set has been found, the board will be refilled to twelve.  If you suspect there are no sets on the board, click the deck for three more cards.<br>(In a regular game of 81 cards, there is only about a 1 in 33 chance of no set in 12 cards)<br><br>If you find yourself really stuck, click "Help Me" and the computer will find a set for you.  But <strong>beware-</strong>if the computer finds more sets than you do, you will lose the game!<br><br>Win the game by emptying the deck and finding all of the sets on the board.  A timer is measuring how fast you find each set, and your average will be logged at the end of the game.  Your time won't affect your win, but for an added challenge, try to beat your previous times.<br><br>Have fun!</p>
-           </div>
+            </section>
             <button id="rules-close">Hide Rules</button>
-        </div>
-        <div id="game-board">
+        </section>
+        <section id="game-board">
             <div id="message"></div>
             <ul id="deck"></ul>
             <div id="set-display"></div>
@@ -55,7 +57,7 @@
             <button id="new-game">New Game</button>
             <ul id="card-mat"></ul>
             <div id="timer">0:00</div>
-        </div>
+        </section>
         <canvas></canvas>
         <p id="win">YOU WIN!!</p>
         <p id="lose">YOU LOST.</p>

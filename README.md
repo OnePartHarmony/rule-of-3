@@ -1,7 +1,7 @@
- # Set of Things Project Plan
+ # Rule of 3 Project Plan
 
 ## Project links
-<https://github.com/OnePartHarmony/set-game>
+<https://github.com/OnePartHarmony/rule-of-3>
 
 ## Overview
 A card game where you have to find sets of cards that follow a rule of threes.
