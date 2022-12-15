@@ -52,36 +52,37 @@ header {
     gap: 0px;
     height: 800px;
     width: 1200px;
-    z-index: 1;
-    color: #84AF21;
-}
-
-#title {
-    text-align: center;
-    grid-column: 2;
-    grid-row: 2;    
-    background: #516990;
-    width: 220px;
-    height: 420px;
-    border-radius: 50%;
-    rotate: -45deg;
+    z-index: 1;    
 }
 
 h1{
-    position: absolute;
-    width: 300px;
-    left: -80px;
-    top: 30px;
-    font-size: 150px;
+    grid-column: 2;
+    grid-row: 2;  
+    position: relative;
+    font-size: 175px;
     font-weight: 600;
-    rotate: 45deg;
-    text-shadow: 10px 10px 10px rgba(0,0,0,.5);
+    text-shadow: 10px 10px 10px rgba(0,0,0,.4);
 }
 
 h1::first-line {
-    font-size: 90px;
+    font-size: 100px;
     line-height: 50px;
+}
 
+#third-title {
+    top: 12px;
+    left: -16px;
+    color: #516990;    
+}
+
+#second-title {
+    top: 6px;
+    left: -8px;
+    color: #088CD9;
+}
+
+#first-title {
+    color: #84AF21;
 }
 
 #header-buttons {
@@ -104,19 +105,31 @@ header button, #rules-close {
     grid-column: 2;
     grid-row: 4;
     height: max-content;
-    width: max-content;
+    width: 650px;
 }
 
 #rules {
     display: none;
-    width: 800px;
+    width: 950px;
     height: 700px;
     z-index: 2;
     color: #76c1ec;
 }
 
 #rule-words {
-    /* overflow-y: scroll; */
+    padding: 20px;
+    overflow-y: scroll;
+    scrollbar-color: #088CD9 #516990;
+}
+
+#rule-words::-webkit-scrollbar {
+    background-color: #516990;
+    width: 10px;
+}
+
+#rule-words::-webkit-scrollbar-thumb {
+    background-color: #088CD9;
+    border-radius: 10px;
 }
 
 #game-board {
@@ -130,11 +143,13 @@ header button, #rules-close {
 
 #message {
     justify-content: center;
+    margin: auto;
     border: 5px solid #7836AF;
     background: linear-gradient(#e1d1ed, #c5a3e0);    
     box-shadow: inset 2px 3px 3px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
-    border-radius: 10% / 50%;
-    width: 750px;
+    /* border-radius: 10% / 50%; */
+    border-radius: 5% / 20%;
+    width: 700px;
     height: 120px;
     color: #2B4570;
     font-size: 1.6em;
@@ -232,7 +247,9 @@ header button, #rules-close {
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden; 
+    -webkit-backface-visibility: hidden;
+    /* before adding this line, the cards were not clickable in firefox: */
+    transform: rotateY(0deg);
 }
 
 .cardFront {
@@ -275,7 +292,7 @@ header button, #rules-close {
     border-radius: 50%;
 }
 
-.triangle div {
+.gumdrop div {
     border-radius: 50% / 100% 100% 0 0;
 }
 
@@ -289,7 +306,7 @@ header button, #rules-close {
     background-color: #84AF21;
 }
 
-.red div {
+.pink div {
     border-color: #DB4CAF;
     background-color: #DB4CAF;
 }
@@ -302,7 +319,7 @@ header button, #rules-close {
     background: linear-gradient(20deg, #088CD9 10%, white 10% 20%, #088CD9 20% 30%, white 30% 40%, #088CD9 40% 50%, white 50% 60%, #088CD9 60% 70%, white 70% 80%, #088CD9 80% 90%, white 90%)
 }
 
-.stripe.red div {
+.stripe.pink div {
     background: linear-gradient(20deg, #DB4CAF 10%, white 10% 20%, #DB4CAF 20% 30%, white 30% 40%, #DB4CAF 40% 50%, white 50% 60%, #DB4CAF 60% 70%, white 70% 80%, #DB4CAF 80% 90%, white 90%)
 }
 
@@ -333,7 +350,7 @@ header button, #rules-close {
 }
 
 .clicked .cardFront {
-    background-color: #e7d9f4;
+    background-color: #dac2f1;
 }
 
 canvas {
@@ -363,6 +380,28 @@ canvas {
 }
 
 #lose {
-    color: rgb(222, 202, 178)
+    color: rgb(231, 231, 17);
 }
 
+.example-set {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 425px;
+}
+
+.example {
+    position: relative;
+    margin: 5px;
+    height: 190px;
+    width: 135px;
+    border-radius: 10%;
+    cursor: default;
+    margin: 5px;
+    height: 190px;
+    width: 135px;
+    transform: none;
+}
