@@ -301,7 +301,7 @@ const loseGame = () => {
             canvas.style.display = "none"
             resetGame()
         })
-    }, 4500)
+    }, 5000)
 }
 
 //For keeping track of time and updating the timer
@@ -411,7 +411,7 @@ const removeAndReplace = () => {
 
 //when a card is clicked, this toggles the clicked class and if 3 cards are clicked, 
 //this checks for a set + updates card mat, timer, and message accordingly
-const clickCard = (card) => {
+function clickCard(card) {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
         //check if three cards are clicked, if not, just clear the message board
@@ -455,14 +455,12 @@ const noSetOnMat = () => {
         clearInterval(timerInterval)
         message.innerText = "You were right; there was no set.\nHave three more cards!"
         while (cardMat.children.length < 15) {drawCard()}
-        addCardEvent()
         setTimer(300)
     } else if (cardMat.children.length === 15) {
         clearInterval(timerInterval)
         message.innerText = "Wow, the odds were 2500:1 that\nthere would be a set in 15 cards.\nThis set's on me."
         while (cardMat.children.length > 12) { cardMat.firstChild.remove() }
         while (cardMat.children.length < 15) {drawCard()}
-        addCardEvent()
         setTimer(300)
         setCount++
         setDisplay.innerText = `Sets Found:\n${setCount}`
