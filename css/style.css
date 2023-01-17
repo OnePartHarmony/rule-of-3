@@ -40,7 +40,6 @@ button:hover {
 header, #rules {
     justify-content: center;    
     position: absolute;
-    background-color: #2B4570;
     font-size: 1.5em;
 }
 
@@ -52,7 +51,8 @@ header {
     gap: 0px;
     height: 800px;
     width: 1200px;
-    z-index: 1;    
+    z-index: 1;
+    background-color: #2B4570;    
 }
 
 h1{
@@ -114,6 +114,7 @@ header button, #rules-close {
     height: 700px;
     z-index: 2;
     color: #76c1ec;
+    background-color: #1f3252;
 }
 
 #rule-words {
