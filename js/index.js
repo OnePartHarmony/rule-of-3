@@ -283,7 +283,7 @@ const winGame = () => {
             canvas.style.display = "none"
             resetGame()
         })
-    }, 2500)
+    }, 2700)
 }
 
 const loseGame = () => {
