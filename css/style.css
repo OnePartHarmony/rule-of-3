@@ -50,7 +50,7 @@ header {
     grid-template-rows: repeat(5, fr);
     gap: 0px;
     height: 800px;
-    width: 1200px;
+    width: 96vw;
     z-index: 1;
     background-color: #2B4570;    
 }
@@ -136,7 +136,7 @@ header button, #rules-close {
 #game-board {
     background-color: #2B4570;
     height: 800px;
-    width: 1200px;
+    width: 97vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
