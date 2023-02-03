@@ -46,8 +46,8 @@ header, #rules {
 header {
     display: grid;
     justify-items: center;
-    grid-template-columns: 20% fr 20%;
-    grid-template-rows: repeat(5, fr);
+    grid-template-columns: 20% 1fr 20%;
+    grid-template-rows: repeat(5, 1fr);
     gap: 0px;
     height: 98vh;
     width: 97vw;
@@ -61,7 +61,7 @@ h1{
     position: relative;
     font-size: 17vw;
     font-weight: 600;
-    text-shadow: 10px 10px 10px rgba(0,0,0,.4);
+    text-shadow: 1vw 1vw 1vw rgba(0,0,0,.4);
 }
 
 h1::first-line {
@@ -93,11 +93,18 @@ h1::first-line {
     margin-top: -40px;
 }
 
-header button, #rules-close {
+header button {
     font-size: 1em;
     width: max-content;
     height: 2.2em;
     margin: 10px;
+}
+
+#rules-close {
+    font-size: 1.1em;
+    width: max-content;
+    height: 5em;
+    margin: 1vh;
 }
 
 #stats {
@@ -105,32 +112,32 @@ header button, #rules-close {
     grid-column: 2;
     grid-row: 4;
     height: max-content;
-    width: 650px;
+    width: 70vw;
 }
 
 #rules {
     display: none;
-    width: 950px;
-    height: 700px;
+    width: 96vw;
+    height: 80vh;
     z-index: 2;
     color: #76c1ec;
     background-color: #1f3252;
 }
 
 #rule-words {
-    padding: 20px;
+    padding: 4vw;
     overflow-y: scroll;
     scrollbar-color: #088CD9 #516990;
 }
 
 #rule-words::-webkit-scrollbar {
     background-color: #516990;
-    width: 10px;
+    width: 1.1vw;
 }
 
 #rule-words::-webkit-scrollbar-thumb {
     background-color: #088CD9;
-    border-radius: 10px;
+    border-radius: 1.1vw;
 }
 
 #game-board {
