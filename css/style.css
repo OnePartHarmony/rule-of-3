@@ -12,7 +12,7 @@ body {
     justify-content: center;
     text-align: center;
     background-color: #2B4570;
-    border: 10px double #088CD9;
+    border: 1vw double #088CD9;
     font-family: "Fredoka", sans-serif;
 }
 
@@ -49,8 +49,8 @@ header {
     grid-template-columns: 20% fr 20%;
     grid-template-rows: repeat(5, fr);
     gap: 0px;
-    height: 800px;
-    width: 96vw;
+    height: 98vh;
+    width: 97vw;
     z-index: 1;
     background-color: #2B4570;    
 }
@@ -59,25 +59,25 @@ h1{
     grid-column: 2;
     grid-row: 2;  
     position: relative;
-    font-size: 175px;
+    font-size: 17vw;
     font-weight: 600;
     text-shadow: 10px 10px 10px rgba(0,0,0,.4);
 }
 
 h1::first-line {
-    font-size: 100px;
-    line-height: 50px;
+    font-size: 13vw;
+    line-height: 9vw;
 }
 
 #third-title {
-    top: 12px;
-    left: -16px;
+    top: 1.2vw;
+    left: -1.5vw;
     color: #516990;    
 }
 
 #second-title {
-    top: 6px;
-    left: -8px;
+    top: .6vw;
+    left: -.75vw;
     color: #088CD9;
 }
 
@@ -135,7 +135,7 @@ header button, #rules-close {
 
 #game-board {
     background-color: #2B4570;
-    height: 800px;
+    height: 98vh;
     width: 97vw;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
