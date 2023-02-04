@@ -24,9 +24,9 @@ body, #rules, #header-buttons, #message, #card-mat, .cardFront {
 
 button {
     border-radius: 10% / 30%;
-    border: 3px solid #7836AF;
+    border: .2vw solid #7836AF;
     background: linear-gradient(#DFCCEF, #7836AF);    
-    box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
+    box-shadow: inset 0px .2vw .1vw #eee4f6, .4vw .4vw .4vw rgba(0,0,0,.2);
     height: 2em;
     font-family: "Fredoka", sans-serif;
     cursor: pointer;
@@ -40,7 +40,6 @@ button:hover {
 header, #rules {
     justify-content: center;    
     position: absolute;
-    font-size: 1.5em;
 }
 
 header {
@@ -88,16 +87,16 @@ h1::first-line {
 #header-buttons {
     grid-column: 2;
     grid-row: 3;
-    width: 250px;
-    height: 250px;
-    margin-top: -40px;
+    width: 25vw;
+    height: 25vh;
+    margin-top: -6vw;
 }
 
 header button {
-    font-size: 1em;
+    font-size: 2.4vw;
     width: max-content;
-    height: 2.2em;
-    margin: 10px;
+    height: 5vw;
+    margin: 1vw;
 }
 
 #rules-close {
@@ -108,6 +107,7 @@ header button {
 }
 
 #stats {
+    font-size: 2.5vw;
     color: white;
     grid-column: 2;
     grid-row: 4;
@@ -122,6 +122,7 @@ header button {
     z-index: 2;
     color: #76c1ec;
     background-color: #1f3252;
+    font-size: 1.5em;
 }
 
 #rule-words {
@@ -145,22 +146,21 @@ header button {
     height: 98vh;
     width: 97vw;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    /* grid-template-columns: repeat(3, 1fr); */
+    gap: 1vw;
 }
 
 #message {
     justify-content: center;
     margin: auto;
-    border: 5px solid #7836AF;
+    border: .4vw solid #7836AF;
     background: linear-gradient(#e1d1ed, #c5a3e0);    
-    box-shadow: inset 2px 3px 3px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
-    /* border-radius: 10% / 50%; */
+    box-shadow: inset .2vw .3vw .3vw #eee4f6, .5vw .5vw .5vw rgba(0,0,0,.2);
     border-radius: 5% / 20%;
-    width: 700px;
-    height: 120px;
+    width: 57vw;
+    height: 14.5vh;
     color: #2B4570;
-    font-size: 1.6em;
+    font-size: 3vw;
     grid-column: 2;
     grid-row: 1;
 }
@@ -170,15 +170,14 @@ header button {
     grid-row: 2;
     align-self: end;
     color: white;
-    font-size: 2em;
+    font-size: 3vw;
 }
 
 #rules-show2, #new-game, #help {
     position: relative;
-    font-size: 1.1em;
-    height: 2em;
-    font-size: 1.5em;
-    width: 150px;
+    font-size: 2.4vw;
+    height: 5vw;
+    width: 15vw;
     margin: auto;    
 }
 
@@ -193,36 +192,36 @@ header button {
 }
 
 #new-game {
-    margin-top: 20px;
+    margin-top: 3vh;
 }
 
 #timer {
     grid-column: 3;
     grid-row: 2;
     color: white;
-    font-size: 3em;
-    margin-top: 80px;
-    text-shadow: 4px 4px 4px rgba(0,0,0,.6);
+    font-size: 5vw;
+    margin-top: 8vh;
+    text-shadow: .4vw .4vw .4vw rgba(0,0,0,.6);
 }
 
 #deck {
     list-style: none;
     position: relative;
-    height: 228px;
-    width: 171px;
+    height: 18.4vw;
+    width: 13.8vw;
     overflow: hidden;
     border-radius: 10%;
     grid-column: 1;
     grid-row: 2;
-    left: 20px;
+    left: 1.6vw;
     cursor: pointer;
 }
 
 #card-mat {
     list-style: none;
     position: relative;
-    height: 625px;
-    width: 750px;
+    height: 50vw;
+    width: 60vw;
     padding: 0;
     flex-wrap: wrap;
     align-content: center;
@@ -233,12 +232,12 @@ header button {
 
 /* list items look like white cards, and the divs within create the flip animation by having a front, inner, and back.  the divs within the fronts become shapes based on classes of the li */
 .card {
-    margin: 5px;
-    height: 190px;
-    width: 135px;
+    margin: .5vw;
+    height: 15.3vw;
+    width: 10.9vw;
     border-radius: 10%;
     background: none;
-    perspective: 1000px;
+    perspective: 80.8vw;
 }
 
 .innerCard {
@@ -261,14 +260,14 @@ header button {
 }
 
 .cardFront {
-    flex: 1 1 190px;
+    flex: 1 1 15.36vw;
     justify-content: center;
     background-color: white;
-    border: 4px solid white;
-    padding: 3px;
+    border: .3vw solid white;
+    padding: .25vw;
     border-radius: 10%;
     transform: rotateX(180deg);
-    box-shadow: 5px 8px 8px rgba(0,0,0,.6);
+    box-shadow: .4vw .65vw .65vw rgba(0,0,0,.6);
     cursor: pointer;
 }
 
@@ -276,9 +275,9 @@ header button {
     border-radius: 10%;
     background-color: #2B4570;
     background-image:  linear-gradient(30deg, #a07abf 12%, transparent 12.5%, transparent 87%, #a07abf 87.5%, #a07abf), linear-gradient(150deg, #a07abf 12%, transparent 12.5%, transparent 87%, #a07abf 87.5%, #a07abf), linear-gradient(30deg, #a07abf 12%, transparent 12.5%, transparent 87%, #a07abf 87.5%, #a07abf), linear-gradient(150deg, #a07abf 12%, transparent 12.5%, transparent 87%, #a07abf 87.5%, #a07abf), linear-gradient(60deg, #a07abf77 25%, transparent 25.5%, transparent 75%, #a07abf77 75%, #a07abf77), linear-gradient(60deg, #a07abf77 25%, transparent 25.5%, transparent 75%, #a07abf77 75%, #a07abf77);
-    background-size: 20px 35px;
-    background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
-    border: 4px solid white;
+    background-size: 1.6vw 2.8vw;
+    background-position: 0 0, 0 0, .8vw 1.44vw, .8vw 1.44vw, 0 0, .8vw 1.44vw;
+    border: .3vw solid white;
 }
 
 .showFront > div{
@@ -287,13 +286,13 @@ header button {
 
 .cardFront div {
     aspect-ratio: 1/1;
-    margin: 4px;
-    min-width: 45px;
-    max-width: 60px;
-    max-height: 60px;
+    margin: .3vw;
+    min-width: 3.6vw;
+    max-width: 4.85vw;
+    max-height: 4.85vw;
     border-style: solid;
     flex-grow: 1;
-    border-width: 3.5px;
+    border-width: .28vw;
 }
 
 .circle div {
@@ -341,20 +340,20 @@ header button {
 }
 
 .deckCard:first-child {
-    left: -5px;
-    top: -5px;
+    left: -.4vw;
+    top: -.4vw;
 }
 .deckCard:nth-child(2) {
-    top: 1px;
-    left: 1px;
+    top: .08vw;
+    left: .08vw;
 }
 .deckCard:nth-child(3) {
-    top: 7px;
-    left: 7px;
+    top: .57vw;
+    left: .57vw;
 }
 .deckCard:nth-child(n+4) {
-    top: 12px;
-    left: 12px;
+    top: .97vw;
+    left: .97vw;
 }
 
 .clicked .cardFront {
@@ -379,7 +378,7 @@ canvas {
     display: none;
     position: absolute;
     z-index: 4;      
-    font-size: 200px;
+    font-size: 16vw;
 }
 
 #win {
