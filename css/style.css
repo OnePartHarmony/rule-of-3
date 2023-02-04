@@ -624,54 +624,89 @@ canvas {
 }
 
 
-@media (orientation: portrait) {
+@media (orientation: portrait) and (max-aspect-ratio: 3/5){
 
     #game-board {
+        margin: auto;
         height: 98vh;
-        width: 96vw;
-        grid-template-columns: 1fr 8fr 1fr;
-        grid-template-rows: 1fr 1fr 7fr 1fr;
+        width: 90vw;
+        grid-template-columns: repeat(5, 19%);
+        grid-template-rows: 1fr 2fr 7fr 1fr;
+        justify-items: center;
         align-items: center;
+        gap: 1vw;
+        grid-template-areas: 
+            "a a a a a"
+            "b b c c e"
+            "f f f f f"
+            "g h h h i"
+        ;
     }
 
     #message {
-        grid-row: 1;
-        grid-column: 2;
+        /* grid-row: 1;
+        grid-column: 1 / 5; */
+        grid-area: a;
+        width: 75vw;
     }
 
     #set-display {
-        grid-row: 4;
-        grid-column: 2;
+        /* grid-row: 4;
+        grid-column: 3; */
+        grid-area: e;
         align-self: auto;
         margin-top: 0;
+        width: max-content;
     }
 
     #help {
-        grid-row: 2;
-        grid-column: 3;
-    
-    }
-
-    #card-mat {
-        grid-row: 3;
-        grid-column: 2;
+        /* grid-row: 2;
+        grid-column: 5;  */
+        grid-area: c;
     }
 
     #rules-show2 {
-        grid-row: 4;
-        grid-column: 1;
+        /* grid-row: 4;
+        grid-column: 1; */
+        grid-area: g;
     }
     
     #timer {
-        grid-row: 2;
-        grid-column: 2;
+        /* grid-row: 2;
+        grid-column: 3; */
+        grid-area: h;
         margin-top: 0;
+        width: max-content;
     }
 
     #new-game{
-        grid-column: 3;
-        grid-row: 4;
+        /* grid-column: 5;
+        grid-row: 4; */
+        grid-area: i;
         margin-top: auto;    
+    }
+
+    #deck {
+        height: 22.08vw;
+        width: 29.44vw;
+        /* grid-column: 1 / 2; */
+        grid-area: b;
+        margin-left: -6vw;
+    }
+
+    #card-mat {
+        margin: auto;
+        height: 96vw;
+        width: 80vw;
+        flex-direction: row;
+        /* grid-row: 3;
+        grid-column: 1 / 4; */
+        grid-area: f;
+    }
+
+    .card {
+        height: 17.44vw;
+        width: 24.48vw;
     }
 
 }
