@@ -2,17 +2,17 @@
     box-sizing: border-box;
 }
 
-html, body {
+body, header {
     width: 100vw;
     height: 100vh;
     margin: 0;
+    border: 10px double #088CD9;
+    background-color: #2B4570;       
 }
 
 body {
     justify-content: center;
     text-align: center;
-    background-color: #2B4570;
-    border: 10px double #088CD9;
     font-family: "Fredoka", sans-serif;
 }
 
@@ -25,9 +25,9 @@ body, #rules, #header-buttons, #message, #card-mat, .cardFront {
 button {
     border-radius: 10% / 30%;
     border: 3px solid #7836AF;
-    background: linear-gradient(#DFCCEF, #7836AF);    
+    /* background: linear-gradient(#DFCCEF, #7836AF); */
+    background: linear-gradient(#DFCCEF, #7836AF);
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
-    height: 2em;
     font-family: "Fredoka", sans-serif;
     cursor: pointer;
 }
@@ -48,10 +48,9 @@ header {
     grid-template-columns: 20% 1fr 20%;
     grid-template-rows: repeat(5, 1fr);
     gap: 0px;
-    height: 98vh;
-    width: 97vw;
     z-index: 1;
-    background-color: #2B4570;    
+    background-color: #2B4570;
+    overflow: hidden;   
 }
 
 h1{
@@ -87,15 +86,13 @@ h1::first-line {
 #header-buttons {
     grid-column: 2;
     grid-row: 3;
-    width: 250px;
-    height: 250px;
     margin-top: -40px;
 }
 
 header button {
-    font-size: 1.5em;
+    font-size: 1.6em;
     width: max-content;
-    height: 2.2em;
+    height: 2.4em;
     margin: 10px;
 }
 
@@ -146,7 +143,6 @@ header button {
     height: 800px;
     width: 1200px;
     display: grid;
-    /* grid-template-columns: repeat(3, 1fr); */
     gap: 20px;
 }
 
@@ -171,6 +167,7 @@ header button {
     align-self: end;
     color: white;
     font-size: 2em;
+    height: max-content;
 }
 
 #rules-show2, #new-game, #help {
@@ -202,6 +199,7 @@ header button {
     font-size: 3em;
     margin-top: 80px;
     text-shadow: 4px 4px 4px rgba(0,0,0,.6);
+    height: max-content;
 }
 
 #deck {
@@ -415,45 +413,42 @@ canvas {
 
 @media (max-width: 1250px) {
     
-    body {
+    body, header {
         border-width: 1vw;
     }
     
     button {
         border-width: .2vw; 
         box-shadow: inset 0px .2vw .1vw #eee4f6, .4vw .4vw .4vw rgba(0,0,0,.2);
-        height: 2em;
     }
 
     h1{
-        font-size: 17vw;
-        text-shadow: 1vw 1vw 1vw rgba(0,0,0,.4);
+        font-size: 14vw;
+        text-shadow: .6vw .6vw .6vw rgba(0,0,0,.4);
     }
     
     h1::first-line {
-        font-size: 13vw;
-        line-height: 9vw;
+        font-size: 8vw;
+        line-height: 4vw;
     }
     
     #third-title {
-        top: 1.2vw;
-        left: -1.5vw;  
+        top: .96vw;
+        left: -1.3vw;  
     }
     
     #second-title {
-        top: .6vw;
-        left: -.75vw;
+        top: .48vw;
+        left: -.65vw;
     }
 
     #header-buttons {
-        width: 25vw;
-        height: 25vh;
         margin-top: -6vw;
     }
     
     header button {
-        font-size: 2.4vw;
-        height: 5vw;
+        font-size: 2vw;
+        height: 4.4vw;
         margin: 1vw;
     }
     
@@ -505,7 +500,7 @@ canvas {
     }
     
     #rules-show2, #new-game, #help {
-        font-size: 2.4vw;
+        font-size: 2.1vw;
         height: 5vw;
         width: 15vw;  
     }
@@ -597,14 +592,86 @@ canvas {
         height: 15.4vw;
         width: 10.9vw;
     }
+}
+
+@media (max-width: 700px){
+
+    h1{
+        font-size: 17.5vw;
+        text-shadow: .6vw .6vw .6vw rgba(0,0,0,.4);
+    }
     
+    h1::first-line {
+        font-size: 10vw;
+        line-height: 5vw;
+    }
     
+    #third-title {
+        top: 1.2vw;
+        left: -1.6vw;  
+    }
+    
+    #second-title {
+        top: .6vw;
+        left: -.8vw;
+    }
+
+    header button {
+        font-size: 3.5vw;
+        height: 7vw;
+        margin: 1.5vw;
+    }
+}
 
 
+@media (orientation: portrait) {
 
+    #game-board {
+        height: 98vh;
+        width: 96vw;
+        grid-template-columns: 1fr 8fr 1fr;
+        grid-template-rows: 1fr 1fr 7fr 1fr;
+        align-items: center;
+    }
 
+    #message {
+        grid-row: 1;
+        grid-column: 2;
+    }
 
+    #set-display {
+        grid-row: 4;
+        grid-column: 2;
+        align-self: auto;
+        margin-top: 0;
+    }
 
+    #help {
+        grid-row: 2;
+        grid-column: 3;
+    
+    }
 
+    #card-mat {
+        grid-row: 3;
+        grid-column: 2;
+    }
+
+    #rules-show2 {
+        grid-row: 4;
+        grid-column: 1;
+    }
+    
+    #timer {
+        grid-row: 2;
+        grid-column: 2;
+        margin-top: 0;
+    }
+
+    #new-game{
+        grid-column: 3;
+        grid-row: 4;
+        margin-top: auto;    
+    }
 
 }
