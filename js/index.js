@@ -27,6 +27,7 @@ let totalSecondsElapsed = ""
 let minutesElapsed = ""
 let secondsElapsed = ""
 let timerInterval = ""
+let textInterval = ""
 let gameCount = 0
 let drawCount = 0
 let setCount = 0
@@ -125,6 +126,7 @@ const resetGame = () => {
     while (deck.firstChild) {
         deck.removeChild(deck.firstChild)
     }
+    clearInterval(textInterval)
     winText.style.display = "none"
     loseText.style.display = "none"
     titleScreen.style.display = "grid"
@@ -273,7 +275,7 @@ const winGame = () => {
     ctx.canvas.width = window.innerWidth
     ctx.canvas.height = window.innerHeight
     let confetti = setInterval(makeRandomCircle, 10)
-    setTimeout(() => {winText.style.display = "block"}, 2000)
+    textInterval = setTimeout(() => {winText.style.display = "block"}, 2000)
     gameCount++
     logStats("won")
     setTimeout(()=>{
@@ -283,7 +285,7 @@ const winGame = () => {
             canvas.style.display = "none"
             resetGame()
         })
-    }, 2500)
+    }, 2700)
 }
 
 const loseGame = () => {
@@ -292,7 +294,7 @@ const loseGame = () => {
     clearInterval(timerInterval)
     canvas.style.display = "flex"
     fillWithBricks()
-    setTimeout(() => {loseText.style.display = "block"}, 4000)
+    textInterval = setTimeout(() => {loseText.style.display = "block"}, 4000)
     gameCount++
     logStats("lost")
     setTimeout(()=>{

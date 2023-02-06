@@ -2,17 +2,17 @@
     box-sizing: border-box;
 }
 
-html, body {
+body, header {
     width: 100vw;
     height: 100vh;
     margin: 0;
+    border: 10px double #088CD9;
+    background-color: #2B4570;       
 }
 
 body {
     justify-content: center;
     text-align: center;
-    background-color: #2B4570;
-    border: 10px double #088CD9;
     font-family: "Fredoka", sans-serif;
 }
 
@@ -25,9 +25,9 @@ body, #rules, #header-buttons, #message, #card-mat, .cardFront {
 button {
     border-radius: 10% / 30%;
     border: 3px solid #7836AF;
-    background: linear-gradient(#DFCCEF, #7836AF);    
+    /* background: linear-gradient(#DFCCEF, #7836AF); */
+    background: linear-gradient(#DFCCEF, #7836AF);
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
-    height: 2em;
     font-family: "Fredoka", sans-serif;
     cursor: pointer;
 }
@@ -40,19 +40,17 @@ button:hover {
 header, #rules {
     justify-content: center;    
     position: absolute;
-    font-size: 1.5em;
 }
 
 header {
     display: grid;
     justify-items: center;
-    grid-template-columns: 20% fr 20%;
-    grid-template-rows: repeat(5, fr);
+    grid-template-columns: 20% 1fr 20%;
+    grid-template-rows: repeat(5, 1fr);
     gap: 0px;
-    height: 800px;
-    width: 1200px;
     z-index: 1;
-    background-color: #2B4570;    
+    background-color: #2B4570;
+    overflow: hidden;   
 }
 
 h1{
@@ -88,24 +86,30 @@ h1::first-line {
 #header-buttons {
     grid-column: 2;
     grid-row: 3;
-    width: 250px;
-    height: 250px;
     margin-top: -40px;
 }
 
-header button, #rules-close {
-    font-size: 1em;
+header button {
+    font-size: 1.6em;
     width: max-content;
-    height: 2.2em;
+    height: 2.4em;
     margin: 10px;
 }
 
+#rules-close {
+    font-size: 1.1em;
+    width: max-content;
+    height: 5em;
+    margin: 7px;
+}
+
 #stats {
+    font-size: 1.7em;
     color: white;
     grid-column: 2;
     grid-row: 4;
     height: max-content;
-    width: 650px;
+    width: 775px;
 }
 
 #rules {
@@ -115,6 +119,7 @@ header button, #rules-close {
     z-index: 2;
     color: #76c1ec;
     background-color: #1f3252;
+    font-size: 1.5em;
 }
 
 #rule-words {
@@ -138,7 +143,6 @@ header button, #rules-close {
     height: 800px;
     width: 1200px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
 }
 
@@ -148,7 +152,6 @@ header button, #rules-close {
     border: 5px solid #7836AF;
     background: linear-gradient(#e1d1ed, #c5a3e0);    
     box-shadow: inset 2px 3px 3px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
-    /* border-radius: 10% / 50%; */
     border-radius: 5% / 20%;
     width: 700px;
     height: 120px;
@@ -164,13 +167,13 @@ header button, #rules-close {
     align-self: end;
     color: white;
     font-size: 2em;
+    height: max-content;
 }
 
 #rules-show2, #new-game, #help {
     position: relative;
-    font-size: 1.1em;
-    height: 2em;
     font-size: 1.5em;
+    height: 2em;
     width: 150px;
     margin: auto;    
 }
@@ -196,6 +199,7 @@ header button, #rules-close {
     font-size: 3em;
     margin-top: 80px;
     text-shadow: 4px 4px 4px rgba(0,0,0,.6);
+    height: max-content;
 }
 
 #deck {
@@ -401,8 +405,386 @@ canvas {
     width: 135px;
     border-radius: 10%;
     cursor: default;
-    margin: 5px;
-    height: 190px;
-    width: 135px;
     transform: none;
+}
+
+
+
+
+@media (max-width: 1210px) {
+    
+    body, header {
+        border-width: 1vw;
+    }
+    
+    button {
+        border-width: .2vw; 
+        box-shadow: inset 0px .2vw .1vw #eee4f6, .4vw .4vw .4vw rgba(0,0,0,.2);
+    }
+
+    h1{
+        font-size: 14vw;
+        text-shadow: .6vw .6vw .6vw rgba(0,0,0,.4);
+    }
+    
+    h1::first-line {
+        font-size: 8vw;
+        line-height: 4vw;
+    }
+    
+    #third-title {
+        top: .96vw;
+        left: -1.3vw;  
+    }
+    
+    #second-title {
+        top: .48vw;
+        left: -.65vw;
+    }
+
+    #header-buttons {
+        margin-top: -6vw;
+    }
+    
+    header button {
+        font-size: 2vw;
+        height: 4.4vw;
+        margin: 1vw;
+    }
+    
+    #rules-close {
+        font-size: 1.1em;
+        height: 5em;
+        margin: 1vh;
+    }
+    
+    #stats {
+        font-size: 2.5vw;
+        width: 70vw;
+    }
+    
+    #rules {
+        width: 96vw;
+        height: 80vh;
+        font-size: 1.5em;
+    }
+    
+    #rule-words {
+        padding: 4vw;
+    }
+    
+    #rule-words::-webkit-scrollbar {
+        width: 1.1vw;
+    }
+    
+    #rule-words::-webkit-scrollbar-thumb {
+        border-radius: 1.1vw;
+    }
+    
+    #game-board {
+        height: 65vw;
+        width: 94vw;
+        gap: 1.5vw;
+    }
+    
+    #message {
+        border-width: .4vw;  
+        box-shadow: inset .2vw .3vw .3vw #eee4f6, .5vw .5vw .5vw rgba(0,0,0,.2);
+        width: 57vw;
+        height: 12vw;
+        font-size: 3vw;
+    }
+    
+    #set-display {
+        font-size: 3vw;
+    }
+    
+    #rules-show2, #new-game, #help {
+        font-size: 2.1vw;
+        height: 5vw;
+        width: 15vw;  
+    }
+
+    #new-game {
+        margin-top: -1vw;
+    }
+    
+    #timer {
+        font-size: 5vw;
+        margin-top: 8vh;
+        text-shadow: .4vw .4vw .4vw rgba(0,0,0,.6);
+    }
+    
+    #deck {
+        height: 18.4vw;
+        width: 13.8vw;
+        left: 1.6vw;
+    }
+    
+    #card-mat {
+        height: 50vw;
+        width: 60vw;
+    }
+
+    .card {
+        margin: .5vw;
+        height: 15.3vw;
+        width: 10.9vw;
+        perspective: 80.8vw;
+    }
+    
+    .cardFront {
+        flex: 1 1 15.36vw;
+        border-width: .3vw;
+        padding: .25vw;
+        box-shadow: .4vw .65vw .65vw rgba(0,0,0,.6);
+    }
+    
+    .cardBack {
+        background-size: 1.6vw 2.8vw;
+        background-position: 0 0, 0 0, .8vw 1.44vw, .8vw 1.44vw, 0 0, .8vw 1.44vw;
+        border-width: .3vw;
+    }
+
+    .cardFront div {
+        margin: .3vw;
+        min-width: 3.6vw;
+        max-width: 4.85vw;
+        max-height: 4.85vw;
+        border-width: .28vw;
+    }
+   
+    .deckCard:first-child {
+        left: -.4vw;
+        top: -.4vw;
+    }
+    .deckCard:nth-child(2) {
+        top: .08vw;
+        left: .08vw;
+    }
+    .deckCard:nth-child(3) {
+        top: .57vw;
+        left: .57vw;
+    }
+    .deckCard:nth-child(n+4) {
+        top: .97vw;
+        left: .97vw;
+    }
+    
+    @keyframes bounce {
+        0%   { transform: scale(1,1) translateY(0); }
+        30%  { transform: scale(1.1,.5) translateY(0); }
+        60%  { transform: scale(.9,1.2)   translateY(-2.4vw);}
+        100% { transform: scale(1,1) translateY(0);}
+    }
+    
+    #win, #lose {     
+        font-size: 16vw;
+    }
+    
+    .example-set {
+        height: 16.17vw;
+        width: 34.35vw;
+    }
+    
+    .example {
+        margin: .4vw;
+        height: 15.4vw;
+        width: 10.9vw;
+    }
+}
+
+@media (max-width: 700px){
+
+    h1{
+        font-size: 17.5vw;
+        text-shadow: .6vw .6vw .6vw rgba(0,0,0,.4);
+    }
+    
+    h1::first-line {
+        font-size: 10vw;
+        line-height: 5vw;
+    }
+    
+    #third-title {
+        top: 1.2vw;
+        left: -1.6vw;  
+    }
+    
+    #second-title {
+        top: .6vw;
+        left: -.8vw;
+    }
+
+    header button {
+        font-size: 3.5vw;
+        height: 7vw;
+        margin: 1.5vw;
+    }
+}
+
+
+@media (orientation: portrait) and (max-aspect-ratio: 3/5){
+
+    h1{
+        font-size: 28vw;
+        text-shadow: 1.2vw 1.2vw 1.2vw rgba(0,0,0,.4);
+    }
+
+    h1::first-line {
+        font-size: 16vw;
+        line-height: 8vw;
+    }
+
+    #third-title {
+        top: 1.92vw;
+        left: -2.56vw;  
+    }
+    
+    #second-title {
+        top: .96vw;
+        left: -1.28vw;
+    }
+
+    header button {
+        font-size: 5vw;
+        height: 10vw;
+        margin: 2vw;
+    }
+
+    #stats {
+        width: 98vw;
+        font-size: 1.6em;
+    }
+
+    #stats-list li {
+        margin-bottom: 2vw;
+    }
+
+    #game-board {
+        margin: auto;
+        height: 98vh;
+        width: 98vw;
+        grid-template-columns: repeat(5, 19%);
+        grid-template-rows: 1fr 2fr 7fr 1fr;
+        justify-items: center;
+        align-items: center;
+        gap: 1vw;
+        grid-template-areas: 
+            "a a a a a"
+            "b b c e e"
+            "f f f f f"
+            "g g h i i"
+        ;
+    }
+
+    #message {
+        grid-area: a;
+        width: 75vw;
+        height: 18vw;
+        font-size: 4.5vw;
+    }
+
+    #rules-show2, #new-game, #help {
+        font-size: 3.6vw;
+        height: 8vw;
+        width: 23vw;  
+    }
+
+    #set-display {
+        grid-area: c;
+        align-self: auto;
+        margin-top: 0;
+        width: max-content;
+        font-size: 4vw;
+    }
+
+    #help {
+        grid-area: e;
+    }
+
+    #rules-show2 {
+        grid-area: g;
+    }
+    
+    #timer {
+        grid-area: h;
+        margin-top: 0;
+        width: max-content;
+    }
+
+    #new-game{
+        grid-area: i;
+        margin-top: auto;    
+    }
+
+    #deck {
+        height: 24.29vw;
+        width: 32.38vw;
+        grid-area: b;
+        margin-left: -6vw;
+    }
+
+    #card-mat {
+        margin: auto;
+        height: 105.6vw;
+        width: 88vw;
+        flex-direction: row;
+        grid-area: f;
+    }
+
+    .card {
+        margin: .88vw;
+        height: 19.2vw;
+        width: 26.9vw;
+        perspective: 142.3vw;
+    }
+
+    .cardFront {
+        flex: 1 1 27.06vw;
+        flex-direction: row;
+        border-width: .53vw;
+        padding: .44vw;
+        box-shadow: .7vw 1.14vw 1.14vw rgba(0,0,0,.6);
+    }
+
+    .cardBack {
+        background-size: 2.82vw 4.93vw;
+        background-position: 0 0, 0 0, 1.41vw 2.54vw, 1.41vw 2.54vw, 0 0, 1.41vw 2.54vw;
+        border-width: .53vw;
+    }
+
+    .cardFront div {
+        margin: .53vw;
+        min-width: 6.34vw;
+        max-width: 8.54vw;
+        max-height: 8.54vw;
+        border-width: .49vw;
+    }
+
+    .deckCard:first-child {
+        left: -.7vw;
+        top: -.7vw;
+    }
+    .deckCard:nth-child(2) {
+        top: .14vw;
+        left: .14vw;
+    }
+    .deckCard:nth-child(3) {
+        top: 1vw;
+        left: 1vw;
+    }
+    .deckCard:nth-child(n+4) {
+        top: 1.7vw;
+        left: 1.7vw;
+    }
+
+    .example-set {
+        height: 25vw;
+        width: 80vw;
+    }
+
+    .example {
+        margin: 1vw;
+    }
 }
