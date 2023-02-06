@@ -411,7 +411,7 @@ canvas {
 
 
 
-@media (max-width: 1250px) {
+@media (max-width: 1210px) {
     
     body, header {
         border-width: 1vw;
@@ -483,7 +483,7 @@ canvas {
     
     #game-board {
         height: 65vw;
-        width: 97vw;
+        width: 94vw;
         gap: 1.5vw;
     }
     
@@ -583,8 +583,8 @@ canvas {
     }
     
     .example-set {
-        height: 16px;
-        width: 34px;
+        height: 16.17vw;
+        width: 34.35vw;
     }
     
     .example {
@@ -768,5 +768,14 @@ canvas {
     .deckCard:nth-child(n+4) {
         top: 1.7vw;
         left: 1.7vw;
+    }
+
+    .example-set {
+        height: 25vw;
+        width: 80vw;
+    }
+
+    .example {
+        margin: 1vw;
     }
 }
