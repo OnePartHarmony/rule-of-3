@@ -637,7 +637,7 @@ canvas {
     }
 
     #stats {
-        width: 90vw;
+        width: 98vw;
         font-size: 1.6em;
     }
 
@@ -648,7 +648,7 @@ canvas {
     #game-board {
         margin: auto;
         height: 98vh;
-        width: 90vw;
+        width: 98vw;
         grid-template-columns: repeat(5, 19%);
         grid-template-rows: 1fr 2fr 7fr 1fr;
         justify-items: center;
@@ -656,22 +656,23 @@ canvas {
         gap: 1vw;
         grid-template-areas: 
             "a a a a a"
-            "b b c c e"
+            "b b c e e"
             "f f f f f"
-            "g h h h i"
+            "g g h i i"
         ;
     }
 
     #message {
         grid-area: a;
         width: 75vw;
-        height: 15vw;
+        height: 18vw;
+        font-size: 4.5vw;
     }
 
     #rules-show2, #new-game, #help {
         font-size: 3.3vw;
         height: 8vw;
-        width: 20vw;  
+        width: 21vw;  
     }
 
     #set-display {
@@ -679,7 +680,7 @@ canvas {
         align-self: auto;
         margin-top: 0;
         width: max-content;
-        font-size: 3.6vw;
+        font-size: 4vw;
     }
 
     #help {
