@@ -663,45 +663,40 @@ canvas {
     }
 
     #message {
-        /* grid-row: 1;
-        grid-column: 1 / 5; */
         grid-area: a;
         width: 75vw;
         height: 15vw;
     }
 
+    #rules-show2, #new-game, #help {
+        font-size: 3.3vw;
+        height: 8vw;
+        width: 20vw;  
+    }
+
     #set-display {
-        /* grid-row: 4;
-        grid-column: 3; */
         grid-area: e;
         align-self: auto;
         margin-top: 0;
         width: max-content;
+        font-size: 3.6vw;
     }
 
     #help {
-        /* grid-row: 2;
-        grid-column: 5;  */
         grid-area: c;
     }
 
     #rules-show2 {
-        /* grid-row: 4;
-        grid-column: 1; */
         grid-area: g;
     }
     
     #timer {
-        /* grid-row: 2;
-        grid-column: 3; */
         grid-area: h;
         margin-top: 0;
         width: max-content;
     }
 
     #new-game{
-        /* grid-column: 5;
-        grid-row: 4; */
         grid-area: i;
         margin-top: auto;    
     }
@@ -709,7 +704,6 @@ canvas {
     #deck {
         height: 24.29vw;
         width: 32.38vw;
-        /* grid-column: 1 / 2; */
         grid-area: b;
         margin-left: -6vw;
     }
@@ -719,8 +713,6 @@ canvas {
         height: 105.6vw;
         width: 88vw;
         flex-direction: row;
-        /* grid-row: 3;
-        grid-column: 1 / 4; */
         grid-area: f;
     }
 
