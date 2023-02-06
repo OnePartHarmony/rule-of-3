@@ -626,6 +626,25 @@ canvas {
 
 @media (orientation: portrait) and (max-aspect-ratio: 3/5){
 
+    h1{
+        font-size: 21vw;
+        text-shadow: .9vw .9vw .9vw rgba(0,0,0,.4);
+    }
+
+    h1::first-line {
+        font-size: 12vw;
+        line-height: 6vw;
+    }
+
+    #stats {
+        width: 90vw;
+        font-size: 1.6em;
+    }
+
+    #stats-list li {
+        margin-bottom: 2vw;
+    }
+
     #game-board {
         margin: auto;
         height: 98vh;
@@ -648,6 +667,7 @@ canvas {
         grid-column: 1 / 5; */
         grid-area: a;
         width: 75vw;
+        height: 15vw;
     }
 
     #set-display {
@@ -687,8 +707,8 @@ canvas {
     }
 
     #deck {
-        height: 22.08vw;
-        width: 29.44vw;
+        height: 24.29vw;
+        width: 32.38vw;
         /* grid-column: 1 / 2; */
         grid-area: b;
         margin-left: -6vw;
@@ -696,8 +716,8 @@ canvas {
 
     #card-mat {
         margin: auto;
-        height: 96vw;
-        width: 80vw;
+        height: 105.6vw;
+        width: 88vw;
         flex-direction: row;
         /* grid-row: 3;
         grid-column: 1 / 4; */
@@ -705,8 +725,48 @@ canvas {
     }
 
     .card {
-        height: 17.44vw;
-        width: 24.48vw;
+        margin: .88vw;
+        height: 19.2vw;
+        width: 26.9vw;
+        perspective: 142.3vw;
     }
 
+    .cardFront {
+        flex: 1 1 27.06vw;
+        flex-direction: row;
+        border-width: .53vw;
+        padding: .44vw;
+        box-shadow: .7vw 1.14vw 1.14vw rgba(0,0,0,.6);
+    }
+
+    .cardBack {
+        background-size: 2.82vw 4.93vw;
+        background-position: 0 0, 0 0, 1.41vw 2.54vw, 1.41vw 2.54vw, 0 0, 1.41vw 2.54vw;
+        border-width: .53vw;
+    }
+
+    .cardFront div {
+        margin: .53vw;
+        min-width: 6.34vw;
+        max-width: 8.54vw;
+        max-height: 8.54vw;
+        border-width: .49vw;
+    }
+
+    .deckCard:first-child {
+        left: -.7vw;
+        top: -.7vw;
+    }
+    .deckCard:nth-child(2) {
+        top: .14vw;
+        left: .14vw;
+    }
+    .deckCard:nth-child(3) {
+        top: 1vw;
+        left: 1vw;
+    }
+    .deckCard:nth-child(n+4) {
+        top: 1.7vw;
+        left: 1.7vw;
+    }
 }
