@@ -633,6 +633,11 @@ canvas {
         height: 100svh;
     }
 
+    header {
+        height: 100vh;
+        height: 100svh; 
+    }
+
     h1{
         font-size: 28vw;
         text-shadow: 1.2vw 1.2vw 1.2vw rgba(0,0,0,.4);
@@ -697,7 +702,6 @@ canvas {
     #rules-show2, #new-game, #help {
         font-size: 3.6vw;
         height: 8vw;
-        width: 23vw;  
     }
 
     #set-display {
@@ -710,6 +714,11 @@ canvas {
 
     #help {
         grid-area: e;
+        width: 23vw;        
+    }
+
+    #rules-show2, #new-game {
+        width: 25vw;
     }
 
     #rules-show2 {
