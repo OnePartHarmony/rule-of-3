@@ -627,13 +627,29 @@ canvas {
 @media (orientation: portrait) and (max-aspect-ratio: 3/5){
 
     h1{
-        font-size: 21vw;
-        text-shadow: .9vw .9vw .9vw rgba(0,0,0,.4);
+        font-size: 28vw;
+        text-shadow: 1.2vw 1.2vw 1.2vw rgba(0,0,0,.4);
     }
 
     h1::first-line {
-        font-size: 12vw;
-        line-height: 6vw;
+        font-size: 16vw;
+        line-height: 8vw;
+    }
+
+    #third-title {
+        top: 1.92vw;
+        left: -2.56vw;  
+    }
+    
+    #second-title {
+        top: .96vw;
+        left: -1.28vw;
+    }
+
+    header button {
+        font-size: 5vw;
+        height: 10vw;
+        margin: 2vw;
     }
 
     #stats {
@@ -670,13 +686,13 @@ canvas {
     }
 
     #rules-show2, #new-game, #help {
-        font-size: 3.3vw;
+        font-size: 3.6vw;
         height: 8vw;
-        width: 21vw;  
+        width: 23vw;  
     }
 
     #set-display {
-        grid-area: e;
+        grid-area: c;
         align-self: auto;
         margin-top: 0;
         width: max-content;
@@ -684,7 +700,7 @@ canvas {
     }
 
     #help {
-        grid-area: c;
+        grid-area: e;
     }
 
     #rules-show2 {
