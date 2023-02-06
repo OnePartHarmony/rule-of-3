@@ -25,7 +25,7 @@ body, #rules, #header-buttons, #message, #card-mat, .cardFront {
 button {
     border-radius: 10% / 30%;
     border: 3px solid #7836AF;
-    /* background: linear-gradient(#DFCCEF, #7836AF); */
+    color: #1a2942;
     background: linear-gradient(#DFCCEF, #7836AF);
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
     font-family: "Fredoka", sans-serif;
