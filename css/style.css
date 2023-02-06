@@ -25,7 +25,7 @@ body, #rules, #header-buttons, #message, #card-mat, .cardFront {
 button {
     border-radius: 10% / 30%;
     border: 3px solid #7836AF;
-    /* background: linear-gradient(#DFCCEF, #7836AF); */
+    color: #1a2942;
     background: linear-gradient(#DFCCEF, #7836AF);
     box-shadow: inset 0px 2px 1px #eee4f6, 5px 5px 5px rgba(0,0,0,.2);
     font-family: "Fredoka", sans-serif;
@@ -626,6 +626,11 @@ canvas {
 
 @media (orientation: portrait) and (max-aspect-ratio: 3/5){
 
+    body {
+        height: 100vh;
+        height: 100svh;
+    }
+
     h1{
         font-size: 28vw;
         text-shadow: 1.2vw 1.2vw 1.2vw rgba(0,0,0,.4);
@@ -664,12 +669,13 @@ canvas {
     #game-board {
         margin: auto;
         height: 98vh;
+        height: 98svh;
         width: 98vw;
         grid-template-columns: repeat(5, 19%);
-        grid-template-rows: 1fr 2fr 7fr 1fr;
+        grid-template-rows: 1fr 1.5fr 7fr .9fr;
         justify-items: center;
         align-items: center;
-        gap: 1vw;
+        gap: 1.4vw;
         grid-template-areas: 
             "a a a a a"
             "b b c e e"
@@ -681,8 +687,9 @@ canvas {
     #message {
         grid-area: a;
         width: 75vw;
-        height: 18vw;
-        font-size: 4.5vw;
+        height: 17vw;
+        margin-top: 2vw;
+        font-size: 4.2vw;
     }
 
     #rules-show2, #new-game, #help {
@@ -719,10 +726,10 @@ canvas {
     }
 
     #deck {
-        height: 24.29vw;
-        width: 32.38vw;
+        height: 24vw;
+        width: 32vw;
         grid-area: b;
-        margin-left: -6vw;
+        margin: 0 0 -2vw 0;
     }
 
     #card-mat {
