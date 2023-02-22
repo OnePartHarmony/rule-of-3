@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-    color: #1a2942;
 }
 
 body, header {
@@ -417,6 +416,7 @@ canvas {
     
     body, header {
         border-width: 1vw;
+        height: 100svh;
     }
     
     button {
@@ -485,7 +485,9 @@ canvas {
     
     #game-board {
         height: 65vw;
-        width: 94vw;
+        max-height: 96svh;
+        width: 98vw;
+        margin: auto;
         gap: 1.5vw;
     }
     
@@ -624,6 +626,205 @@ canvas {
         margin: 1.5vw;
     }
 }
+
+
+@media (orientation: landscape) and (min-aspect-ratio: 5 / 4){
+
+    body, header {
+        border-width: 1.2svh;
+        height: 100svh;
+    }
+
+    button {
+        border-width: .5svh; 
+        box-shadow: inset 0px .2svh .1svh #eee4f6, .4svh .4svh .4svh rgba(0,0,0,.2);
+    }
+
+    h1{
+        font-size: 20svh;
+        text-shadow: .6svh .6svh .6svh rgba(0,0,0,.4);
+    }
+    
+    h1::first-line {
+        font-size: 10svh;
+        line-height: 4svh;
+    }
+
+    #third-title {
+        top: 1.2svh;
+        left: -1.625svh;  
+    }
+    
+    #second-title {
+        top: .6svh;
+        left: -.81svh;
+    }
+
+    #header-buttons {
+        margin-top: -7.5svh;
+    }
+    
+    header button {
+        font-size: 4svh;
+        height: 8.8svh;
+        margin: 1.25svh;
+    }
+
+    #rules-close {
+        font-size: 1em;
+        height: 5.2em;
+        margin: 1.2svh;
+    }
+
+    #stats {
+        font-size: 4svh;
+        width: 60vw;
+    }
+
+    #rules {
+        width: 96vw;
+        height: 80vh;
+        font-size: 1.2em;
+    }
+
+    #game-board {
+        grid-template-columns: repeat(5, 19%);
+        grid-template-rows: repeat(4, 24%);
+        justify-items: center;
+        align-items: center;
+        gap: 2svh;
+        grid-template-areas: 
+            "a b b b c"
+            "a d d d e"
+            "f d d d g"
+            "h d d d i"
+        ;
+    }
+
+    #deck {
+        grid-area: a;
+    }
+
+    #message {
+        grid-area: b;
+        height: 16svh;
+        font-size: 4svh;
+    }
+
+    #timer {
+        grid-area: c;
+        font-size: 7svh;
+    }
+
+    #card-mat {
+        grid-area: d;
+    }
+
+    #new-game {
+        grid-area: g;
+        margin-top: 15svh;
+    }
+
+    #set-display {
+        grid-area: f;
+        font-size: 4.4svh;
+        margin-left: 1svh;
+    }
+
+    #help {
+        grid-area: h;
+    }
+
+    #rules-show2 {
+        grid-area: i;
+    }
+
+    #rules-show2, #new-game, #help {
+        font-size: 2.8svh;
+        height: 8svh;
+        width: 19svh;
+    }
+
+    #deck {
+        height: 23.9svh;;
+        width: 17.9svh;
+        left: 2.1svh;
+    }
+    
+    #card-mat {
+        margin: 0;
+        height: 65svh;
+        width: 78svh;
+    }
+
+    .card {
+        margin: .65svh;
+        height: 19.89svh;
+        width: 14.17svh;
+        perspective: 105.04svh;
+    }
+
+    .cardFront {
+        flex: 1 1 19.97svh;
+        border-width: .39svh;
+        padding: .325svh;
+        box-shadow: .52svh .85svh .85svh rgba(0,0,0,.6);
+    }
+
+    .cardBack {
+        background-size: 2.08svh 3.64svh;
+        background-position: 0 0, 0 0, 1.04svh 1.87svh, 1.04svh 1.87svh, 0 0, 1.04svh 1.87svh;
+        border-width: .4svh;
+    }
+
+    .cardFront div {
+        margin: .39svh;
+        min-width: 4.68svh;
+        max-width: 6.3svh;
+        max-height: 6.3svh;
+        border-width: .364svh;
+    }    
+
+    .deckCard:first-child {
+        left: -.52svh;
+        top: -.52svh;
+    }
+    .deckCard:nth-child(2) {
+        top: .104svh;
+        left: .104svh;
+    }    
+
+    .deckCard:nth-child(3) {
+        top: .741svh;
+        left: .741svh;
+    }
+
+    .deckCard:nth-child(n+4) {
+        top: 1.26svh;
+        left: 1.26svh;
+    }   
+
+    #win, #lose {     
+        font-size: 22svh;
+    }
+
+}
+
+@media (orientation: landscape) and (min-aspect-ratio: 5 / 3){
+
+    #rules-show2, #new-game, #help {
+        font-size: 3.6svh;
+        height: 8svh;
+        width: 25svh;
+    }
+
+    #set-display {
+        font-size: 5svh;
+    }
+
+}
+
+
 
 
 @media (orientation: portrait) and (max-aspect-ratio: 3/5){
