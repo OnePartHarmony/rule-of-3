@@ -51,7 +51,7 @@ header {
     gap: 0px;
     z-index: 1;
     background-color: #2B4570;
-    overflow: hidden;   
+    overflow: scroll;   
 }
 
 h1{
