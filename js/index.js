@@ -202,6 +202,7 @@ const checkSet = (threeCardArray) => {
 const unclickCards = () => {
     let clickedCards = document.getElementsByClassName("clicked")
     while (clickedCards.length > 0) {
+        clickedCards[0].classList.remove("set-card")
         clickedCards[0].classList.remove("clicked")
     }
 }
@@ -375,7 +376,7 @@ const removeCardEvent = () => {
 //After a set has been found by the player or the computer, the cards need 
 //to be removed from the mat with new cards drawn in their place
 const removeAndReplace = () => {
-    let clickedCards =  document.getElementsByClassName("clicked")
+    let clickedCards =  document.getElementsByClassName("set-card")
     setTimeout(() => {
         while (clickedCards.length > 0) {
             clickedCards[0].remove()
@@ -417,12 +418,16 @@ function clickCard(card) {
     card.classList.toggle("clicked")
     if (card.classList.contains("clicked")) {
         //check if three cards are clicked, if not, just clear the message board
-        let clickedCards =  document.getElementsByClassName("clicked")          
+        let clickedCards =  document.querySelectorAll(".clicked")          
         if (clickedCards.length < 3){
             message.innerText = ""
             return
             //if three cards clicked, compare properties
         } else if (clickedCards.length === 3) {
+            //add another class to clicked cards in case one is unclicked
+            clickedCards.forEach(eachCard => {
+                eachCard.classList.add("set-card")
+            })
             deck.removeEventListener("click", clickDeck)
             helpMe.removeEventListener("click", getHelp)
             let cardsToCheck = []
