@@ -817,6 +817,7 @@ canvas {
         font-size: 3.6svh;
         height: 8svh;
         width: 27svh;
+        padding: 0;
     }
 
     #set-display {
