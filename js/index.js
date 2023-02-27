@@ -492,6 +492,7 @@ const getHelp = () => {
                 let frontOfCard = cardMat.children[i].firstChild.firstChild
                 if (array.every(property => frontOfCard.classList.contains(property))) {
                     cardMat.children[i].classList.add("clicked")
+                    cardMat.children[i].classList.add("set-card")
                 }                
             }
         })
