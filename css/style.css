@@ -51,7 +51,8 @@ header {
     gap: 0px;
     z-index: 1;
     background-color: #2B4570;
-    overflow: scroll;   
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 h1{
@@ -815,7 +816,7 @@ canvas {
     #rules-show2, #new-game, #help {
         font-size: 3.6svh;
         height: 8svh;
-        width: 25svh;
+        width: 26svh;
     }
 
     #set-display {
